@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>A Tenth of Mercy</title>
+
+<style>
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background: #100b08;
+    color: #f2e6cf;
+    font-family: Georgia, "Times New Roman", serif;
+    min-height: 100vh;
+}
+
+/* =========================
+   HERO / HOME PAGE
+   ========================= */
+
+.hero {
+    min-height: 100vh;
+    position: relative;
+    overflow: hidden;
+
+    background:
+        linear-gradient(
+            rgba(10, 6, 4, 0.18),
+            rgba(10, 6, 4, 0.42)
+        ),
+        url("home.jpg") center center / cover no-repeat;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* =========================
+   HAMBURGER
+   ========================= */
+
+.menu-button {
+    position: absolute;
+    top: 25px;
+    left: 25px;
+    z-index: 20;
+
+    width: 58px;
+    height: 48px;
+
+    background: transparent;
+    border: none;
+
+    cursor: pointer;
+}
+
+.menu-button span {
+    display: block;
+    width: 48px;
+    height: 4px;
+    margin: 8px 0;
+
+    background: #d8ad58;
+    border-radius: 2px;
+}
+
+/* =========================
+   NAVIGATION MENU
+   ========================= */
+
+.menu {
+    position: fixed;
+    inset: 0;
+    z-index: 15;
+
+    background: rgba(12, 7, 5, 0.97);
+
+    display: none;
+    align-items: center;
+    justify-content: center;
+
+    text-align: center;
+}
+
+.menu.open {
+    display: flex;
+}
+
+.menu-inner {
+    display: flex;
+    flex-direction: column;
+    gap: 26px;
+}
+
+.menu a {
+    color: #e2bd70;
+    text-decoration: none;
+
+    font-size: 25px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+
+    transition: color 0.2s ease;
+}
+
+.menu a:hover {
+    color: #fff4dc;
+}
+
+/* =========================
+   TITLE
+   ========================= */
+
+.site-title {
+    margin-top: 48px;
+
+    color: #d8b66b;
+
+    font-size: clamp(22px, 3vw, 42px);
+    letter-spacing: 8px;
+    text-transform: uppercase;
+
+    text-align: center;
+}
+
+.site-title span {
+    font-size: 0.72em;
+    letter-spacing: 4px;
+    text-transform: lowercase;
+}
+
+/* =========================
+   QUOTE
+   ========================= */
+
+.quote {
+    margin-top: 42px;
+
+    max-width: 850px;
+    padding: 0 25px;
+
+    text-align: center;
+
+    color: #f4eee4;
+
+    font-size: clamp(28px, 4vw, 48px);
+    line-height: 1.35;
+
+    font-style: italic;
+
+    text-shadow: 0 3px 8px #000;
+}
+
+.quote::before {
+    content: "“";
+}
+
+.quote::after {
+    content: "”";
+}
+
+/* =========================
+   DIVIDER
+   ========================= */
+
+.divider {
+    width: min(500px, 70%);
+    height: 1px;
+
+    background: #c49b52;
+
+    margin: 28px auto;
+    position: relative;
+}
+
+.divider::after {
+    content: "✦";
+
+    position: absolute;
+    left: 50%;
+    top: 50%;
+
+    transform: translate(-50%, -50%);
+
+    color: #d8b66b;
+    background: #100b08;
+
+    padding: 0 12px;
+}
+
+/* =========================
+   BOOK / INFORMATION
+   ========================= */
+
+.book-info {
+    margin-top: auto;
+    margin-bottom: 65px;
+
+    text-align: center;
+
+    padding: 0 20px;
+
+    text-shadow: 0 3px 8px #000;
+}
+
+.inspired {
+    font-weight: bold;
+    font-size: clamp(18px, 2.4vw, 28px);
+
+    letter-spacing: 2px;
+    text-transform: uppercase;
+
+    color: #f1e4c8;
+}
+
+.book-title {
+    margin-top: 12px;
+
+    font-size: clamp(42px, 7vw, 82px);
+
+    letter-spacing: 5px;
+    font-weight: bold;
+
+    color: #caa05b;
+}
+
+.author {
+    margin-top: 8px;
+
+    font-size: clamp(18px, 2.2vw, 27px);
+
+    letter-spacing: 4px;
+    color: #f1e4c8;
+}
+
+.release-label {
+    margin-top: 28px;
+
+    color: #d5ad61;
+
+    font-size: 15px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+}
+
+.release-date {
+    margin-top: 5px;
+
+    font-size: clamp(24px, 3vw, 38px);
+
+    letter-spacing: 3px;
+    color: #fff;
+}
+
+.preorder {
+    margin-top: 6px;
+
+    font-size: 18px;
+    font-style: italic;
+
+    color: #eadfc9;
+}
+
+/* =========================
+   BUTTONS
+   ========================= */
+
+.buttons {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    gap: 14px;
+
+    margin-top: 25px;
+}
+
+.button {
+    display: block;
+
+    width: min(600px, 88vw);
+
+    padding: 18px 24px;
+
+    border-radius: 6px;
+
+    text-decoration: none;
+
+    font-size: 19px;
+    letter-spacing: 3px;
+
+    text-transform: uppercase;
+
+    transition:
+        transform 0.2s ease,
+        filter 0.2s ease;
+}
+
+.button:hover {
+    transform: translateY(-2px);
+    filter: brightness(1.12);
+}
+
+.deep {
+    background: #631d1b;
+    border: 1px solid #a74d46;
+
+    color: #fff0df;
+}
+
+.excerpt {
+    background: #d6b477;
+    border: 1px solid #ecd3a4;
+
+    color: #21150e;
+}
+
+/* =========================
+   SCROLL MESSAGE
+   ========================= */
+
+.scroll-message {
+    margin-top: 28px;
+
+    color: #d8b66b;
+
+    font-size: 14px;
+    letter-spacing: 4px;
+
+    text-transform: uppercase;
+}
+
+/* =========================
+   MOBILE
+   ========================= */
+
+@media (max-width: 700px) {
+
+    .menu-button {
+        top: 18px;
+        left: 18px;
+    }
+
+    .site-title {
+        margin-top: 28px;
+        letter-spacing: 5px;
+    }
+
+    .quote {
+        margin-top: 28px;
+        font-size: 27px;
+    }
+
+    .book-info {
+        margin-bottom: 40px;
+    }
+
+    .book-title {
+        letter-spacing: 3px;
+    }
+
+    .button {
+        font-size: 16px;
+        letter-spacing: 2px;
+        padding: 16px 18px;
+    }
+
+    .scroll-message {
+        font-size: 11px;
+        letter-spacing: 3px;
+    }
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- =========================
+     HOME
+     ========================= -->
+
+<section class="hero">
+
+    <!-- HAMBURGER BUTTON -->
+    <button class="menu-button" onclick="toggleMenu()" aria-label="Open menu">
+        <span></span>
+        <span></span>
+        <span></span>
+    </button>
+
+
+    <!-- MENU -->
+    <nav class="menu" id="menu">
+
+        <div class="menu-inner">
+
+            <a href="index.html" onclick="closeMenu()">Home</a>
+
+            <a href="excerpt.html" onclick="closeMenu()">
+                Read an Excerpt
+            </a>
+
+            <a href="archive.html" onclick="closeMenu()">
+                Archive Room
+            </a>
+
+            <a href="webisodes.html" onclick="closeMenu()">
+                Webisodes
+            </a>
+
+            <a href="journey.html" onclick="closeMenu()">
+                The Journey
+            </a>
+
+            <a href="contact.html" onclick="closeMenu()">
+                Contact
+            </a>
+
+        </div>
+
+    </nav>
+
+
+    <!-- SITE TITLE -->
+
+    <div class="site-title">
+        A Tenth <span>of</span> Mercy
+    </div>
+
+
+    <!-- OPENING QUOTE -->
+
+    <div class="quote">
+        Do you know what's worse than dying?
+        <br>
+        Being afraid to live.
+    </div>
+
+
+    <div class="divider"></div>
+
+
+    <!-- BOOK INFORMATION -->
+
+    <div class="book-info">
+
+        <div class="inspired">
+            Inspired by the remarkable true story
+        </div>
+
+        <div class="book-title">
+            A TENTH<br>
+            OF MERCY
+        </div>
+
+        <div class="author">
+            ROB KERR
+        </div>
+
+        <div class="release-label">
+            Book Release
+        </div>
+
+        <div class="release-date">
+            FEBRUARY 1, 2027
+        </div>
+
+        <div class="preorder">
+            Preorders Begin January 2027
+        </div>
+
+
+        <!-- BUTTONS -->
+
+        <div class="buttons">
+
+            <a class="button deep" href="journey.html">
+                Dig Deeper
+            </a>
+
+            <a class="button excerpt" href="excerpt.html">
+                Read the First Two Chapters
+            </a>
+
+        </div>
+
+
+        <div class="scroll-message">
+            ↓ &nbsp; Scroll to begin the story &nbsp; ↓
+        </div>
+
+    </div>
+
+</section>
+
+
+<script>
+
+function toggleMenu() {
+    const menu = document.getElementById("menu");
+    menu.classList.toggle("open");
+}
+
+function closeMenu() {
+    const menu = document.getElementById("menu");
+    menu.classList.remove("open");
+}
+
+</script>
+
+</body>
+</html>
