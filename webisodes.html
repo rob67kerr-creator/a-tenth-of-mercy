@@ -16,28 +16,35 @@
       margin: 0;
       padding: 0;
       width: 100%;
-      min-height: 100%;
       background: #000;
       font-family: Georgia, "Times New Roman", serif;
     }
 
     body {
+      min-height: 100vh;
+      min-height: 100dvh;
+
       display: flex;
-      flex-direction: column;
+      justify-content: center;
       align-items: center;
+
       overflow-x: hidden;
     }
 
     /* --------------------------------------------------
        ROOM
-       Full width on phones. On desktop it becomes a
-       centered "poster" so the tall artwork isn't huge.
+       The artwork is 2:3 (tall). This sizes it so the
+       WHOLE picture fits on screen with no scrolling:
+       - phones: as wide as the screen allows
+       - desktop: as tall as the window allows
     -------------------------------------------------- */
 
     .room {
       position: relative;
-      width: 100%;
-      max-width: 640px;
+
+      width: min(100vw, calc(100vh * 2 / 3));
+      width: min(100vw, calc(100dvh * 2 / 3));
+
       line-height: 0;
     }
 
@@ -164,9 +171,9 @@
     }
 
     /* --------------------------------------------------
-       CLICKABLE FILM REELS
-       Percentages are measured against webisodes.png.
-       Reel Four is intentionally NOT clickable yet.
+       CLICKABLE BUTTONS (sit on top of the artwork's
+       three built-in buttons). Positions are percentages
+       of the image, so they scale with it.
     -------------------------------------------------- */
 
     .reel {
@@ -176,7 +183,7 @@
       padding: 0;
       background: transparent;
       border: 1px solid transparent;
-      border-radius: 18px;
+      border-radius: 10px;
 
       cursor: pointer;
       -webkit-tap-highlight-color: transparent;
@@ -188,31 +195,31 @@
 
     .reel:hover,
     .reel:focus-visible {
-      background: rgba(212, 167, 74, 0.10);
-      border-color: rgba(212, 167, 74, 0.45);
-      box-shadow: 0 0 22px rgba(212, 167, 74, 0.20);
+      background: rgba(212, 167, 74, 0.12);
+      border-color: rgba(212, 167, 74, 0.55);
+      box-shadow: 0 0 22px rgba(212, 167, 74, 0.25);
       outline: none;
     }
 
     #reel-one {
-      left: 0.5%;
-      top: 56.8%;
-      width: 23%;
-      height: 3.4%;
+      left: 25%;
+      top: 48%;
+      width: 50.2%;
+      height: 7.8%;
     }
 
     #reel-two {
-      left: 0.5%;
-      top: 61.1%;
-      width: 23%;
-      height: 3.4%;
+      left: 25%;
+      top: 57.2%;
+      width: 50.2%;
+      height: 7.8%;
     }
 
     #reel-three {
-      left: 0.5%;
-      top: 64.5%;
-      width: 23%;
-      height: 3.4%;
+      left: 25%;
+      top: 66.4%;
+      width: 48.8%;
+      height: 7.7%;
     }
 
     /*
@@ -228,64 +235,15 @@
     }
 
     /* --------------------------------------------------
-       EPISODE BUTTON LIST (phones only)
-       Easier to tap than the small reel hotspots.
-    -------------------------------------------------- */
-
-    .episode-list {
-      display: none;
-
-      width: 100%;
-      max-width: 640px;
-      padding: 24px 20px 50px;
-
-      background: #000;
-      line-height: 1.4;
-    }
-
-    .episode-list p {
-      margin: 0 0 14px;
-
-      color: #a88a4a;
-      font-size: 13px;
-      letter-spacing: 2px;
-      text-align: center;
-      text-transform: uppercase;
-    }
-
-    .episode-list button {
-      display: block;
-      width: 100%;
-      margin-bottom: 12px;
-      padding: 16px;
-
-      background: transparent;
-      border: 1px solid rgba(212, 167, 74, 0.6);
-      border-radius: 4px;
-
-      color: #d8ad52;
-      font-family: Georgia, "Times New Roman", serif;
-      font-size: 16px;
-      letter-spacing: 1px;
-
-      cursor: pointer;
-      -webkit-tap-highlight-color: transparent;
-
-      transition: background 0.2s ease,
-                  color 0.2s ease;
-    }
-
-    .episode-list button:hover,
-    .episode-list button:active {
-      background: #d8ad52;
-      color: #000;
-    }
-
-    /* --------------------------------------------------
        VIDEO MODAL
+       Each video sets its own shape (--vw and --vh) so a
+       video that isn't 16:9 fills the player properly.
     -------------------------------------------------- */
 
     .video-modal {
+      --vw: 16;
+      --vh: 9;
+
       position: fixed;
       inset: 0;
       z-index: 2000;
@@ -313,7 +271,12 @@
     .video-box {
       position: relative;
 
-      width: min(1100px, 94vw);
+      /*
+        As wide as possible, but never taller than
+        about 80% of the screen.
+      */
+      width: min(1100px, 94vw, calc(80vh * var(--vw) / var(--vh)));
+      width: min(1100px, 94vw, calc(80dvh * var(--vw) / var(--vh)));
 
       background: #000;
 
@@ -327,7 +290,7 @@
     .video-container {
       position: relative;
       width: 100%;
-      aspect-ratio: 16 / 9;
+      aspect-ratio: var(--vw) / var(--vh);
     }
 
     .video-container iframe {
@@ -407,10 +370,6 @@
         font-size: 16px;
       }
 
-      .episode-list {
-        display: block;
-      }
-
       .video-modal {
         padding: 15px;
       }
@@ -482,25 +441,25 @@
   <main class="room">
 
     <img
-      src="webisodes.png"
+      src="webisodes2.png"
       class="room-image"
-      alt="Webisodes room for A Tenth of Mercy">
+      alt="Webisodes for A Tenth of Mercy: Episode One, Episode Two, and the Blooper Reel">
 
-    <!-- REEL ONE -->
+    <!-- EPISODE ONE -->
     <button
       class="reel"
       id="reel-one"
       aria-label="Watch Episode One: A Visit to Institute, West Virginia">
     </button>
 
-    <!-- REEL TWO -->
+    <!-- EPISODE TWO -->
     <button
       class="reel"
       id="reel-two"
       aria-label="Watch Episode Two: A Visit to the Cultural Center">
     </button>
 
-    <!-- REEL THREE -->
+    <!-- BLOOPER REEL -->
     <button
       class="reel"
       id="reel-three"
@@ -508,23 +467,6 @@
     </button>
 
   </main>
-
-
-  <!-- ================================================
-       EPISODE BUTTONS (shown on phones only)
-  ================================================= -->
-
-  <section class="episode-list">
-
-    <p>Or choose an episode</p>
-
-    <button id="list-one">Episode 1 — A Visit to Institute, WV</button>
-
-    <button id="list-two">Episode 2 — A Visit to the Cultural Center</button>
-
-    <button id="list-three">Blooper Reel</button>
-
-  </section>
 
 
   <!-- ================================================
@@ -557,6 +499,7 @@
           src=""
           title="A Tenth of Mercy Webisode"
           allow="autoplay; encrypted-media; picture-in-picture"
+          referrerpolicy="strict-origin-when-cross-origin"
           allowfullscreen>
         </iframe>
 
@@ -604,23 +547,38 @@
 
     /* =================================================
        WEBISODE VIDEOS
+
+       w and h are the SHAPE of each video (width x height).
+       Most YouTube videos are 16 x 9.
+
+       If the Blooper Reel looks smaller than the others,
+       it is probably a different shape. Change its w and h:
+         vertical phone video  ->  w: 9,  h: 16
+         old-TV / square-ish   ->  w: 4,  h: 3
+         perfect square        ->  w: 1,  h: 1
     ================================================= */
 
     const videos = {
 
       "reel-one": {
         title: "Episode 1 — A Visit to Institute, WV",
-        id: "VohUntGNZ48"
+        id: "VohUntGNZ48",
+        w: 16,
+        h: 9
       },
 
       "reel-two": {
         title: "Episode 2 — A Visit to the Cultural Center",
-        id: "X7b2kU7Esuw"
+        id: "X7b2kU7Esuw",
+        w: 16,
+        h: 9
       },
 
       "reel-three": {
         title: "Blooper Reel",
-        id: "tomU3GP_PCA"
+        id: "tomU3GP_PCA",
+        w: 16,
+        h: 9
       }
 
     };
@@ -641,6 +599,10 @@
       }
 
       videoTitle.textContent = video.title;
+
+      /* Set the player shape for this video */
+      videoModal.style.setProperty("--vw", video.w);
+      videoModal.style.setProperty("--vh", video.h);
 
       videoFrame.src =
         "https://www.youtube-nocookie.com/embed/" +
@@ -670,28 +632,15 @@
     }
 
 
-    /* Clickable reels in the artwork */
+    /* Connect each clickable button to its video */
 
-    document.getElementById("reel-one")
-      .addEventListener("click", function() { openVideo("reel-one"); });
+    ["reel-one", "reel-two", "reel-three"].forEach(function(id) {
 
-    document.getElementById("reel-two")
-      .addEventListener("click", function() { openVideo("reel-two"); });
+      document.getElementById(id).addEventListener("click", function() {
+        openVideo(id);
+      });
 
-    document.getElementById("reel-three")
-      .addEventListener("click", function() { openVideo("reel-three"); });
-
-
-    /* Phone button list */
-
-    document.getElementById("list-one")
-      .addEventListener("click", function() { openVideo("reel-one"); });
-
-    document.getElementById("list-two")
-      .addEventListener("click", function() { openVideo("reel-two"); });
-
-    document.getElementById("list-three")
-      .addEventListener("click", function() { openVideo("reel-three"); });
+    });
 
 
     closeVideo.addEventListener("click", closeVideoWindow);
