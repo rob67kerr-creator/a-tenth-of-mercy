@@ -23,18 +23,21 @@
 
     body {
       display: flex;
-      justify-content: center;
+      flex-direction: column;
+      align-items: center;
       overflow-x: hidden;
     }
 
     /* --------------------------------------------------
        ROOM
+       Full width on phones. On desktop it becomes a
+       centered "poster" so the tall artwork isn't huge.
     -------------------------------------------------- */
 
     .room {
       position: relative;
       width: 100%;
-      max-width: 1100px;
+      max-width: 640px;
       line-height: 0;
     }
 
@@ -66,6 +69,7 @@
       color: #d8ad52;
 
       cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
 
       display: flex;
       flex-direction: column;
@@ -97,7 +101,8 @@
 
       width: 300px;
       max-width: 85vw;
-      height: 100vh;
+      height: 100vh;   /* fallback for older browsers */
+      height: 100dvh;  /* correct height on phones */
 
       padding: 90px 35px 40px;
 
@@ -160,66 +165,121 @@
 
     /* --------------------------------------------------
        CLICKABLE FILM REELS
+       Percentages are measured against webisodes.png.
+       Reel Four is intentionally NOT clickable yet.
     -------------------------------------------------- */
 
     .reel {
       position: absolute;
       z-index: 10;
 
-      cursor: pointer;
-
-      /*
-        Invisible hotspot.
-        The subtle outline appears only when hovering
-        on desktop so we can see what is clickable
-        while testing.
-      */
-
+      padding: 0;
+      background: transparent;
       border: 1px solid transparent;
       border-radius: 18px;
+
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
 
       transition: background 0.25s ease,
                   border-color 0.25s ease,
                   box-shadow 0.25s ease;
     }
 
-    .reel:hover {
+    .reel:hover,
+    .reel:focus-visible {
       background: rgba(212, 167, 74, 0.10);
       border-color: rgba(212, 167, 74, 0.45);
       box-shadow: 0 0 22px rgba(212, 167, 74, 0.20);
+      outline: none;
     }
 
-    /*
-      These percentages correspond to the reel stack
-      in the artwork you uploaded.
-
-      Reel One
-    */
-
     #reel-one {
-      left: 2%;
-      top: 54.5%;
-      width: 22%;
-      height: 4.3%;
+      left: 0.5%;
+      top: 56.8%;
+      width: 23%;
+      height: 3.4%;
     }
 
     #reel-two {
-      left: 2%;
-      top: 58.0%;
-      width: 22%;
-      height: 4.3%;
+      left: 0.5%;
+      top: 61.1%;
+      width: 23%;
+      height: 3.4%;
     }
 
     #reel-three {
-      left: 2%;
-      top: 61.5%;
-      width: 22%;
-      height: 4.3%;
+      left: 0.5%;
+      top: 64.5%;
+      width: 23%;
+      height: 3.4%;
     }
 
     /*
-      Reel Four is intentionally NOT clickable yet.
+      ALIGNMENT TEST (temporary): to see the clickable areas,
+      change the <body> tag near the bottom of the page to
+      <body class="debug"> and refresh. Change it back when
+      everything lines up.
     */
+
+    body.debug .reel {
+      border-color: rgba(255, 0, 0, 0.8);
+      background: rgba(255, 0, 0, 0.15);
+    }
+
+    /* --------------------------------------------------
+       EPISODE BUTTON LIST (phones only)
+       Easier to tap than the small reel hotspots.
+    -------------------------------------------------- */
+
+    .episode-list {
+      display: none;
+
+      width: 100%;
+      max-width: 640px;
+      padding: 24px 20px 50px;
+
+      background: #000;
+      line-height: 1.4;
+    }
+
+    .episode-list p {
+      margin: 0 0 14px;
+
+      color: #a88a4a;
+      font-size: 13px;
+      letter-spacing: 2px;
+      text-align: center;
+      text-transform: uppercase;
+    }
+
+    .episode-list button {
+      display: block;
+      width: 100%;
+      margin-bottom: 12px;
+      padding: 16px;
+
+      background: transparent;
+      border: 1px solid rgba(212, 167, 74, 0.6);
+      border-radius: 4px;
+
+      color: #d8ad52;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 16px;
+      letter-spacing: 1px;
+
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+
+      transition: background 0.2s ease,
+                  color 0.2s ease;
+    }
+
+    .episode-list button:hover,
+    .episode-list button:active {
+      background: #d8ad52;
+      color: #000;
+    }
 
     /* --------------------------------------------------
        VIDEO MODAL
@@ -313,6 +373,7 @@
       line-height: 35px;
 
       cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
 
       transition: background 0.2s ease,
                   color 0.2s ease;
@@ -344,6 +405,10 @@
 
       .menu a {
         font-size: 16px;
+      }
+
+      .episode-list {
+        display: block;
       }
 
       .video-modal {
@@ -421,27 +486,21 @@
       class="room-image"
       alt="Webisodes room for A Tenth of Mercy">
 
-
     <!-- REEL ONE -->
-
     <button
       class="reel"
       id="reel-one"
       aria-label="Watch Episode One: A Visit to Institute, West Virginia">
     </button>
 
-
     <!-- REEL TWO -->
-
     <button
       class="reel"
       id="reel-two"
       aria-label="Watch Episode Two: A Visit to the Cultural Center">
     </button>
 
-
     <!-- REEL THREE -->
-
     <button
       class="reel"
       id="reel-three"
@@ -449,6 +508,23 @@
     </button>
 
   </main>
+
+
+  <!-- ================================================
+       EPISODE BUTTONS (shown on phones only)
+  ================================================= -->
+
+  <section class="episode-list">
+
+    <p>Or choose an episode</p>
+
+    <button id="list-one">Episode 1 — A Visit to Institute, WV</button>
+
+    <button id="list-two">Episode 2 — A Visit to the Cultural Center</button>
+
+    <button id="list-three">Blooper Reel</button>
+
+  </section>
 
 
   <!-- ================================================
@@ -551,11 +627,8 @@
 
 
     const videoModal = document.getElementById("videoModal");
-
     const videoFrame = document.getElementById("videoFrame");
-
     const videoTitle = document.getElementById("videoTitle");
-
     const closeVideo = document.getElementById("closeVideo");
 
 
@@ -589,10 +662,7 @@
 
       videoModal.setAttribute("aria-hidden", "true");
 
-      /*
-        Removing the YouTube URL stops the video completely.
-      */
-
+      /* Removing the YouTube URL stops the video completely. */
       videoFrame.src = "";
 
       document.body.style.overflow = "";
@@ -600,34 +670,34 @@
     }
 
 
-    document
-      .getElementById("reel-one")
-      .addEventListener("click", function() {
-        openVideo("reel-one");
-      });
+    /* Clickable reels in the artwork */
+
+    document.getElementById("reel-one")
+      .addEventListener("click", function() { openVideo("reel-one"); });
+
+    document.getElementById("reel-two")
+      .addEventListener("click", function() { openVideo("reel-two"); });
+
+    document.getElementById("reel-three")
+      .addEventListener("click", function() { openVideo("reel-three"); });
 
 
-    document
-      .getElementById("reel-two")
-      .addEventListener("click", function() {
-        openVideo("reel-two");
-      });
+    /* Phone button list */
 
+    document.getElementById("list-one")
+      .addEventListener("click", function() { openVideo("reel-one"); });
 
-    document
-      .getElementById("reel-three")
-      .addEventListener("click", function() {
-        openVideo("reel-three");
-      });
+    document.getElementById("list-two")
+      .addEventListener("click", function() { openVideo("reel-two"); });
+
+    document.getElementById("list-three")
+      .addEventListener("click", function() { openVideo("reel-three"); });
 
 
     closeVideo.addEventListener("click", closeVideoWindow);
 
 
-    /*
-      Clicking the dark area outside the video
-      also closes the video.
-    */
+    /* Clicking the dark area outside the video closes it. */
 
     videoModal.addEventListener("click", function(event) {
 
@@ -638,9 +708,7 @@
     });
 
 
-    /*
-      Escape key closes the video.
-    */
+    /* Escape key closes the video or the menu. */
 
     document.addEventListener("keydown", function(event) {
 
