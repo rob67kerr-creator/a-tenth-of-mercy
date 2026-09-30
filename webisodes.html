@@ -389,6 +389,55 @@
         line-height: 29px;
       }
     }
+    /* --------------------------------------------------
+       TOUCH SCREENS (phones and tablets)
+       The popup fills the screen by itself, so people
+       don't need YouTube's fullscreen button (which
+       showed this video too small on some phones).
+       Turn the phone sideways and the video fills it.
+    -------------------------------------------------- */
+
+    @media (pointer: coarse) {
+
+      .video-modal {
+        padding: 0;
+      }
+
+      .video-box {
+        width: min(100vw, calc(100vh * var(--vw) / var(--vh)));
+        width: min(100vw, calc(100dvh * var(--vw) / var(--vh)));
+        box-shadow: none;
+      }
+
+      .close-video {
+        position: fixed;
+        top: 12px;
+        right: 12px;
+        z-index: 5;
+
+        width: 44px;
+        height: 44px;
+
+        font-size: 28px;
+        line-height: 41px;
+      }
+
+      .video-title {
+        position: fixed;
+        top: 22px;
+        left: 16px;
+        right: 72px;
+
+        font-size: 13px;
+      }
+    }
+
+    @media (pointer: coarse) and (orientation: landscape) {
+
+      .video-title {
+        display: none;
+      }
+    }
   </style>
 </head>
 
@@ -604,10 +653,17 @@
       videoModal.style.setProperty("--vw", video.w);
       videoModal.style.setProperty("--vh", video.h);
 
+      /*
+        On touch screens the popup fills the screen itself,
+        so YouTube's own fullscreen button is hidden (fs=0).
+      */
+      const isTouch = window.matchMedia("(pointer: coarse)").matches;
+
       videoFrame.src =
         "https://www.youtube-nocookie.com/embed/" +
         video.id +
-        "?autoplay=1&rel=0";
+        "?autoplay=1&rel=0&playsinline=1" +
+        (isTouch ? "&fs=0" : "");
 
       videoModal.classList.add("open");
 
