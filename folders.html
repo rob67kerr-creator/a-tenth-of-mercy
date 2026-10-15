@@ -181,6 +181,9 @@
     .item .icon em { font-style: normal; font-size: 13px; letter-spacing: 3px; }
     .item .cap { display: block; padding: 11px 12px 13px; font-size: 15px; line-height: 1.3; color: #f2e6cf; }
     .item .cap small { display: block; margin-top: 4px; font-size: 12px; letter-spacing: 1px; color: #a8884a; }
+    .pv { position: relative; display: block; }
+    .badge { position: absolute; top: 8px; right: 8px; padding: 3px 8px; font-size: 11px; letter-spacing: 2px;
+      color: #1a120a; background: #d8ad52; border-radius: 3px; }
     .empty { color: #cdb98f; font-style: italic; }
 
     /* ---------- viewer ---------- */
@@ -307,10 +310,10 @@
           h += '<button type="button" class="item" data-i="' + idx + '"><img class="thumb" loading="lazy" src="' +
             thumbOf(it.file) + '" alt="' + esc(it.title || it.file) + '">' + cap + '</button>';
         } else {
-          var kind = PDF.test(it.file) ? "PDF" : "DOC";
+          var isPdf = PDF.test(it.file);
           h += '<a class="item" href="' + url(it.file) + '" target="_blank" rel="noopener"' +
-            (PDF.test(it.file) ? '' : ' download') + '><span class="icon">' + ICON_DOC +
-            '<em>' + kind + '</em></span>' + cap + '</a>';
+            (isPdf ? '' : ' download') + '><span class="pv"><img class="thumb" loading="lazy" src="' + thumbOf(it.file) +
+            '" alt="' + esc(it.title || it.file) + '"><span class="badge">' + (isPdf ? "PDF" : "DOC") + '</span></span>' + cap + '</a>';
         }
       });
       page.innerHTML = h + '</div>';
