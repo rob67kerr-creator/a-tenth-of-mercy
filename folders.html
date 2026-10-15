@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Archives | A Tenth of Mercy</title>
+  <style>
+    * { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; background: #100b08; color: #f2e6cf;
+      font-family: Georgia, "Times New Roman", serif; }
+    body { min-height: 100vh; min-height: 100dvh; background:
+      radial-gradient(ellipse at 50% 0%, rgba(150,105,40,.22), transparent 60%), #100b08; }
+
+    /* --------------------------------------------------
+       HAMBURGER MENU
+    -------------------------------------------------- */
+
+    .menu-button {
+      position: fixed;
+      top: 22px;
+      left: 22px;
+      z-index: 1000;
+
+      width: 48px;
+      height: 48px;
+
+      border: 1px solid rgba(210, 166, 70, 0.75);
+      border-radius: 4px;
+
+      background: rgba(0, 0, 0, 0.72);
+      color: #d8ad52;
+
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 6px;
+
+      transition: background 0.25s ease,
+                  transform 0.25s ease;
+    }
+
+    .menu-button:hover {
+      background: rgba(35, 25, 10, 0.9);
+      transform: scale(1.04);
+    }
+
+    .menu-button span {
+      display: block;
+      width: 23px;
+      height: 2px;
+      background: #d8ad52;
+    }
+
+    .menu {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 999;
+
+      width: 300px;
+      max-width: 85vw;
+      height: 100vh;   /* fallback for older browsers */
+      height: 100dvh;  /* correct height on phones */
+
+      padding: 90px 35px 40px;
+
+      background: rgba(8, 6, 3, 0.97);
+      border-right: 1px solid rgba(210, 166, 70, 0.55);
+
+      transform: translateX(-100%);
+      transition: transform 0.35s ease;
+
+      line-height: 1.4;
+    }
+
+    .menu.open {
+      transform: translateX(0);
+    }
+
+    .menu a {
+      display: block;
+      padding: 14px 0;
+
+      color: #d8ad52;
+      text-decoration: none;
+
+      font-size: 18px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+
+      border-bottom: 1px solid rgba(210, 166, 70, 0.18);
+
+      transition: color 0.2s ease,
+                  padding-left 0.2s ease;
+    }
+
+    .menu a:hover {
+      color: #f2d28a;
+      padding-left: 6px;
+    }
+
+    .menu a.active {
+      color: #f2d28a;
+    }
+
+    .menu-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 998;
+
+      background: rgba(0, 0, 0, 0.55);
+
+      opacity: 0;
+      pointer-events: none;
+
+      transition: opacity 0.35s ease;
+    }
+
+    .menu-overlay.open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+
+    .page { max-width: 1100px; margin: 0 auto; padding: 84px 22px 70px; }
+
+    .crumbs { font-size: 13px; letter-spacing: 2px; text-transform: uppercase; color: #a8884a; }
+    .crumbs a { color: #d8ad52; text-decoration: none; }
+    .crumbs a:hover { color: #f2d28a; }
+    .crumbs span { margin: 0 8px; opacity: .6; }
+
+    h1 { margin: 14px 0 6px; font-weight: normal; font-size: 40px; letter-spacing: 3px;
+      text-transform: uppercase; color: #d8ad52; }
+    .sub { margin: 0 0 34px; font-style: italic; color: #cdb98f; font-size: 19px; }
+    .rule { height: 1px; margin: 0 0 34px;
+      background: linear-gradient(90deg, rgba(210,166,70,.7), rgba(210,166,70,.05)); border: 0; }
+
+    /* ---------- folder shelf ---------- */
+    .folders { display: grid; gap: 34px 28px;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); }
+    .folder { display: block; position: relative; text-decoration: none; color: #2b1d0b;
+      padding-top: 26px; transition: transform .25s ease, filter .25s ease; }
+    .folder:hover, .folder:focus-visible { transform: translateY(-6px);
+      filter: drop-shadow(0 12px 18px rgba(212,167,74,.28)); outline: none; }
+    .folder .tab, .folder .body { display: block; }
+    .folder .tab { position: absolute; top: 0; left: 0; width: 46%; height: 30px;
+      background: linear-gradient(#d9b66f, #c9a459); border-radius: 10px 10px 0 0;
+      border: 1px solid #7d5f27; border-bottom: 0; }
+    .folder .body { position: relative; height: 170px; padding: 28px 22px 18px;
+      background: linear-gradient(160deg, #e6c885 0%, #d3ad60 55%, #bf9748 100%);
+      border: 1px solid #7d5f27; border-radius: 0 12px 12px 12px;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.35), 0 8px 18px rgba(0,0,0,.55); }
+    .folder .body::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 56%;
+      background: linear-gradient(rgba(255,240,200,.18), rgba(120,84,26,.18));
+      border-top: 1px solid rgba(125,95,39,.55); border-radius: 0 0 12px 12px; pointer-events: none; }
+    .folder .label { position: relative; z-index: 1; display: inline-block; padding: 10px 14px;
+      background: #f6ecd2; border: 1px solid rgba(90,64,20,.6); border-radius: 3px;
+      box-shadow: 0 1px 2px rgba(0,0,0,.3); }
+    .folder .label b { display: block; font-size: 21px; letter-spacing: 1px; font-weight: normal; }
+    .folder .label small { display: block; margin-top: 3px; font-size: 12px;
+      letter-spacing: 2px; text-transform: uppercase; color: #6c5426; }
+
+    /* ---------- document grid ---------- */
+    .grid { display: grid; gap: 22px 20px;
+      grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); }
+    .item { display: block; text-decoration: none; color: inherit; cursor: pointer;
+      background: rgba(255,240,205,.04); border: 1px solid rgba(210,166,70,.28); border-radius: 6px;
+      overflow: hidden; padding: 0; text-align: left; font: inherit;
+      transition: transform .22s ease, border-color .22s ease, box-shadow .22s ease; }
+    .item:hover, .item:focus-visible { transform: translateY(-4px); border-color: rgba(242,210,138,.85);
+      box-shadow: 0 10px 24px rgba(0,0,0,.6), 0 0 18px rgba(212,167,74,.2); outline: none; }
+    .item .thumb { display: block; width: 100%; aspect-ratio: 3 / 4; background: #1a120a;
+      object-fit: cover; object-position: top center; }
+    .item .icon { display: flex; flex-direction: column; align-items: center; justify-content: center;
+      gap: 12px; width: 100%; aspect-ratio: 3 / 4; background: #1a120a; color: #d8ad52; }
+    .item .icon svg { width: 54px; height: 54px; }
+    .item .icon em { font-style: normal; font-size: 13px; letter-spacing: 3px; }
+    .item .cap { display: block; padding: 11px 12px 13px; font-size: 15px; line-height: 1.3; color: #f2e6cf; }
+    .item .cap small { display: block; margin-top: 4px; font-size: 12px; letter-spacing: 1px; color: #a8884a; }
+    .empty { color: #cdb98f; font-style: italic; }
+
+    /* ---------- viewer ---------- */
+    .viewer { position: fixed; inset: 0; z-index: 2000; display: none; flex-direction: column;
+      align-items: center; justify-content: center; background: rgba(5,3,1,.94); padding: 16px; }
+    .viewer.open { display: flex; }
+    .viewer .stage { flex: 1 1 auto; min-height: 0; width: 100%; display: flex;
+      align-items: center; justify-content: center; }
+    .viewer img { max-width: 100%; max-height: 100%; object-fit: contain; border-radius: 3px;
+      box-shadow: 0 10px 40px rgba(0,0,0,.8); }
+    .viewer .bar { flex: 0 0 auto; padding: 12px 8px 2px; text-align: center; max-width: 900px; }
+    .viewer .t { font-size: 17px; color: #f2e6cf; }
+    .viewer .n { margin-top: 4px; font-size: 13px; letter-spacing: 1px; color: #a8884a; }
+    .viewer .n a { color: #d8ad52; }
+    .vbtn { position: absolute; width: 46px; height: 46px; border-radius: 50%; cursor: pointer;
+      border: 1px solid rgba(210,166,70,.75); background: rgba(0,0,0,.65); color: #d8ad52;
+      font-size: 24px; line-height: 42px; text-align: center; padding: 0;
+      -webkit-tap-highlight-color: transparent; }
+    .vbtn:hover { background: #d8ad52; color: #000; }
+    .vclose { top: 14px; right: 14px; }
+    .vprev { left: 12px; top: 50%; transform: translateY(-50%); }
+    .vnext { right: 12px; top: 50%; transform: translateY(-50%); }
+
+    @media (max-width: 700px) {
+      .page { padding: 76px 16px 50px; }
+      h1 { font-size: 28px; letter-spacing: 2px; }
+      .sub { font-size: 17px; }
+      .folders { grid-template-columns: 1fr; gap: 26px; }
+      .grid { grid-template-columns: repeat(2, 1fr); gap: 14px; }
+      .vprev, .vnext { top: auto; bottom: 74px; transform: none; }
+    }
+    @media (max-width: 700px) {
+      .menu-button { top: 14px; left: 14px; width: 43px; height: 43px; }
+      .menu { width: 280px; padding-top: 78px; }
+      .menu a { font-size: 16px; }
+    }
+
+  </style>
+</head>
+<body>
+  <button class="menu-button" id="menuButton" aria-label="Open menu" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+
+  <nav class="menu" id="menu">
+    <a href="index.html">Home</a>
+    <a href="excerpt.html">Read an Excerpt</a>
+    <a href="archive.html" class="active">Archive Room</a>
+    <a href="webisodes.html">Webisodes</a>
+    <a href="journey.html">The Journey</a>
+    <a href="contact.html">Contact</a>
+  </nav>
+  <div class="menu-overlay" id="menuOverlay"></div>
+
+  <main class="page" id="page"></main>
+
+  <div class="viewer" id="viewer" role="dialog" aria-modal="true">
+    <button class="vbtn vclose" id="vclose" aria-label="Close">&times;</button>
+    <button class="vbtn vprev" id="vprev" aria-label="Previous">&#8249;</button>
+    <button class="vbtn vnext" id="vnext" aria-label="Next">&#8250;</button>
+    <div class="stage"><img id="vimg" alt=""></div>
+    <div class="bar"><div class="t" id="vtitle"></div><div class="n" id="vnote"></div></div>
+  </div>
+
+  <script src="archive-data.js"></script>
+  <script>
+    const menuButton = document.getElementById("menuButton");
+    const menu = document.getElementById("menu");
+    const menuOverlay = document.getElementById("menuOverlay");
+    function closeMenu() {
+      menu.classList.remove("open");
+      menuOverlay.classList.remove("open");
+      menuButton.setAttribute("aria-expanded", "false");
+    }
+    menuButton.addEventListener("click", function () {
+      const isOpen = menu.classList.toggle("open");
+      menuOverlay.classList.toggle("open", isOpen);
+      menuButton.setAttribute("aria-expanded", isOpen);
+    });
+    menuOverlay.addEventListener("click", closeMenu);
+
+    var IMG = /\.(jpe?g|png|gif|webp)$/i;
+    var PDF = /\.pdf$/i;
+
+    function esc(s) { return String(s).replace(/[&<>"]/g, function (c) {
+      return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); }
+    function url(f) { return encodeURI(f); }
+    function thumbOf(f) { return "thumbs/" + encodeURI(f.replace(/\.[^.]+$/, "")) + ".jpg"; }
+    function countText(n) { return n + (n === 1 ? " item" : " items"); }
+
+    var ICON_DOC = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"><path d="M6 2.5h8l4 4V21.5H6z"/><path d="M14 2.5v4h4M9 12h6M9 15.5h6M9 9h2"/></svg>';
+
+    var params = new URLSearchParams(location.search);
+    var folder = ARCHIVE.filter(function (f) { return f.id === params.get("f"); })[0];
+    var page = document.getElementById("page");
+    var viewable = [];   /* images in the open folder, for the viewer */
+    var cur = 0;
+
+    function showFolders() {
+      document.title = "The Archives | A Tenth of Mercy";
+      var h = '<div class="crumbs"><a href="archive.html">Archive Room</a><span>&rsaquo;</span>Folders</div>' +
+        '<h1>The Archives</h1><p class="sub">Choose a folder to see the documents and images inside.</p><hr class="rule">' +
+        '<div class="folders">';
+      ARCHIVE.forEach(function (f) {
+        h += '<a class="folder" href="folders.html?f=' + encodeURIComponent(f.id) + '">' +
+          '<span class="tab"></span><span class="body"><span class="label"><b>' + esc(f.name) +
+          '</b><small>' + countText(f.items.length) + '</small></span></span></a>';
+      });
+      page.innerHTML = h + '</div>';
+    }
+
+    function showFolder(f) {
+      document.title = f.name + " | The Archives | A Tenth of Mercy";
+      var h = '<div class="crumbs"><a href="archive.html">Archive Room</a><span>&rsaquo;</span>' +
+        '<a href="folders.html">Folders</a><span>&rsaquo;</span>' + esc(f.name) + '</div>' +
+        '<h1>' + esc(f.name) + '</h1><p class="sub">' + countText(f.items.length) + '</p><hr class="rule">';
+      if (!f.items.length) { page.innerHTML = h + '<p class="empty">Nothing in this folder yet.</p>'; return; }
+      h += '<div class="grid">';
+      f.items.forEach(function (it) {
+        var cap = '<span class="cap">' + esc(it.title || it.file) +
+          (it.note ? '<small>' + esc(it.note) + '</small>' : '') + '</span>';
+        if (IMG.test(it.file)) {
+          var idx = viewable.length; viewable.push(it);
+          h += '<button type="button" class="item" data-i="' + idx + '"><img class="thumb" loading="lazy" src="' +
+            thumbOf(it.file) + '" alt="' + esc(it.title || it.file) + '">' + cap + '</button>';
+        } else {
+          var kind = PDF.test(it.file) ? "PDF" : "DOC";
+          h += '<a class="item" href="' + url(it.file) + '" target="_blank" rel="noopener"' +
+            (PDF.test(it.file) ? '' : ' download') + '><span class="icon">' + ICON_DOC +
+            '<em>' + kind + '</em></span>' + cap + '</a>';
+        }
+      });
+      page.innerHTML = h + '</div>';
+      page.querySelectorAll("img.thumb").forEach(function (im) {
+        im.addEventListener("error", function () {
+          var sp = document.createElement("span"); sp.className = "icon"; sp.innerHTML = ICON_DOC;
+          im.replaceWith(sp);
+        });
+      });
+      page.querySelectorAll("button.item").forEach(function (b) {
+        b.addEventListener("click", function () { openViewer(+b.getAttribute("data-i")); });
+      });
+    }
+
+    /* ---------- viewer ---------- */
+    var viewer = document.getElementById("viewer"), vimg = document.getElementById("vimg");
+    function show(i) {
+      cur = (i + viewable.length) % viewable.length;
+      var it = viewable[cur];
+      vimg.src = url(it.file); vimg.alt = it.title || it.file;
+      document.getElementById("vtitle").textContent = it.title || it.file;
+      document.getElementById("vnote").innerHTML = (cur + 1) + " of " + viewable.length +
+        ' &nbsp;&middot;&nbsp; <a href="' + url(it.file) + '" target="_blank" rel="noopener">Open full size</a>';
+    }
+    function openViewer(i) { show(i); viewer.classList.add("open"); document.body.style.overflow = "hidden"; }
+    function closeViewer() { viewer.classList.remove("open"); document.body.style.overflow = ""; vimg.removeAttribute("src"); }
+    document.getElementById("vclose").addEventListener("click", closeViewer);
+    document.getElementById("vprev").addEventListener("click", function () { show(cur - 1); });
+    document.getElementById("vnext").addEventListener("click", function () { show(cur + 1); });
+    viewer.addEventListener("click", function (e) { if (e.target === viewer || e.target.className === "stage") closeViewer(); });
+    var sx = null;
+    viewer.addEventListener("touchstart", function (e) { sx = e.touches[0].clientX; }, { passive: true });
+    viewer.addEventListener("touchend", function (e) {
+      if (sx === null) return; var dx = e.changedTouches[0].clientX - sx; sx = null;
+      if (Math.abs(dx) > 60) show(cur + (dx < 0 ? 1 : -1)); });
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape") { if (viewer.classList.contains("open")) closeViewer(); closeMenu(); }
+      if (viewer.classList.contains("open")) {
+        if (e.key === "ArrowLeft") show(cur - 1);
+        if (e.key === "ArrowRight") show(cur + 1);
+      }
+    });
+
+    if (folder) showFolder(folder); else showFolders();
+  </script>
+</body>
+</html>

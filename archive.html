@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Archive Room | A Tenth of Mercy</title>
+  <style>
+    * { box-sizing: border-box; }
+    html, body {
+      margin: 0; padding: 0; width: 100%;
+      background: #000;
+      font-family: Georgia, "Times New Roman", serif;
+    }
+    body {
+      min-height: 100vh; min-height: 100dvh;
+      display: flex; justify-content: center; align-items: center;
+      overflow-x: hidden;
+    }
+
+    /* The artwork is tall (853 x 1844). This sizes it so the WHOLE
+       picture fits on screen with no scrolling. */
+    .room {
+      position: relative;
+      width: min(100vw, calc(100vh * 853 / 1844));
+      width: min(100vw, calc(100dvh * 853 / 1844));
+      line-height: 0;
+    }
+    .room-image {
+      display: block; width: 100%; height: auto;
+      user-select: none; -webkit-user-drag: none;
+    }
+
+    /* --------------------------------------------------
+       HAMBURGER MENU
+    -------------------------------------------------- */
+
+    .menu-button {
+      position: fixed;
+      top: 22px;
+      left: 22px;
+      z-index: 1000;
+
+      width: 48px;
+      height: 48px;
+
+      border: 1px solid rgba(210, 166, 70, 0.75);
+      border-radius: 4px;
+
+      background: rgba(0, 0, 0, 0.72);
+      color: #d8ad52;
+
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 6px;
+
+      transition: background 0.25s ease,
+                  transform 0.25s ease;
+    }
+
+    .menu-button:hover {
+      background: rgba(35, 25, 10, 0.9);
+      transform: scale(1.04);
+    }
+
+    .menu-button span {
+      display: block;
+      width: 23px;
+      height: 2px;
+      background: #d8ad52;
+    }
+
+    .menu {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 999;
+
+      width: 300px;
+      max-width: 85vw;
+      height: 100vh;   /* fallback for older browsers */
+      height: 100dvh;  /* correct height on phones */
+
+      padding: 90px 35px 40px;
+
+      background: rgba(8, 6, 3, 0.97);
+      border-right: 1px solid rgba(210, 166, 70, 0.55);
+
+      transform: translateX(-100%);
+      transition: transform 0.35s ease;
+
+      line-height: 1.4;
+    }
+
+    .menu.open {
+      transform: translateX(0);
+    }
+
+    .menu a {
+      display: block;
+      padding: 14px 0;
+
+      color: #d8ad52;
+      text-decoration: none;
+
+      font-size: 18px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+
+      border-bottom: 1px solid rgba(210, 166, 70, 0.18);
+
+      transition: color 0.2s ease,
+                  padding-left 0.2s ease;
+    }
+
+    .menu a:hover {
+      color: #f2d28a;
+      padding-left: 6px;
+    }
+
+    .menu a.active {
+      color: #f2d28a;
+    }
+
+    .menu-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 998;
+
+      background: rgba(0, 0, 0, 0.55);
+
+      opacity: 0;
+      pointer-events: none;
+
+      transition: opacity 0.35s ease;
+    }
+
+    .menu-overlay.open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+
+    /* The clickable center cabinet (percentages of the image). */
+    .cabinet {
+      position: absolute; z-index: 10;
+      left: 35.2%; top: 43.1%; width: 32.6%; height: 36.8%;
+      display: block;
+      border: 1px solid transparent; border-radius: 8px;
+      -webkit-tap-highlight-color: transparent;
+      transition: background 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+    }
+    .cabinet:hover, .cabinet:focus-visible {
+      background: rgba(212, 167, 74, 0.10);
+      border-color: rgba(212, 167, 74, 0.55);
+      box-shadow: 0 0 26px rgba(212, 167, 74, 0.28);
+      outline: none;
+    }
+    /* Alignment test: change <body> to <body class="debug"> to see it. */
+    body.debug .cabinet { border-color: rgba(255,0,0,.8); background: rgba(255,0,0,.15); }
+
+    @media (max-width: 700px) {
+      .menu-button { top: 14px; left: 14px; width: 43px; height: 43px; }
+      .menu { width: 280px; padding-top: 78px; }
+      .menu a { font-size: 16px; }
+    }
+  </style>
+</head>
+<body>
+
+  <button class="menu-button" id="menuButton" aria-label="Open menu" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+
+  <nav class="menu" id="menu">
+    <a href="index.html">Home</a>
+    <a href="excerpt.html">Read an Excerpt</a>
+    <a href="archive.html" class="active">Archive Room</a>
+    <a href="webisodes.html">Webisodes</a>
+    <a href="journey.html">The Journey</a>
+    <a href="contact.html">Contact</a>
+  </nav>
+  <div class="menu-overlay" id="menuOverlay"></div>
+
+  <div class="room">
+    <img class="room-image" src="archive-room.png" alt="A dim archive room with three filing cabinets. Click the center cabinet to open the archives.">
+    <a class="cabinet" href="folders.html" aria-label="Open the archives"></a>
+  </div>
+
+  <script>
+    const menuButton = document.getElementById("menuButton");
+    const menu = document.getElementById("menu");
+    const menuOverlay = document.getElementById("menuOverlay");
+    function closeMenu() {
+      menu.classList.remove("open");
+      menuOverlay.classList.remove("open");
+      menuButton.setAttribute("aria-expanded", "false");
+    }
+    menuButton.addEventListener("click", function () {
+      const isOpen = menu.classList.toggle("open");
+      menuOverlay.classList.toggle("open", isOpen);
+      menuButton.setAttribute("aria-expanded", isOpen);
+    });
+    menuOverlay.addEventListener("click", closeMenu);
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape") closeMenu();
+    });
+  </script>
+</body>
+</html>
