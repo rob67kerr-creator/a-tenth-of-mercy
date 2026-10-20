@@ -136,6 +136,10 @@
     h1 { margin: 14px 0 6px; font-weight: normal; font-size: 40px; letter-spacing: 3px;
       text-transform: uppercase; color: #d8ad52; }
     .sub { margin: 0 0 34px; font-style: italic; color: #cdb98f; font-size: 19px; }
+    .intro { max-width: 760px; margin: 20px 0 30px; }
+    .intro p { margin: 0 0 14px; font-size: 18px; line-height: 1.65; color: #e6d7b8; }
+    .intro p.lead { font-size: 22px; line-height: 1.5; color: #f6ecd2; margin-bottom: 18px; }
+    .intro em { color: #f2d28a; }
     .rule { height: 1px; margin: 0 0 34px;
       background: linear-gradient(90deg, rgba(210,166,70,.7), rgba(210,166,70,.05)); border: 0; }
 
@@ -194,10 +198,16 @@
       align-items: center; justify-content: center; }
     .viewer img { max-width: 100%; max-height: 100%; object-fit: contain; border-radius: 3px;
       box-shadow: 0 10px 40px rgba(0,0,0,.8); }
-    .viewer .bar { flex: 0 0 auto; padding: 12px 8px 2px; text-align: center; max-width: 900px; }
+    .viewer .bar { flex: 0 0 auto; padding: 12px 8px 2px; text-align: center; width: 100%; max-width: 900px; }
     .viewer .t { font-size: 17px; color: #f2e6cf; }
-    .viewer .n { margin-top: 4px; font-size: 13px; letter-spacing: 1px; color: #a8884a; }
+    .viewer .d { margin: 10px auto 0; max-width: 760px; max-height: 26vh; overflow-y: auto; text-align: left;
+      font-size: 16px; line-height: 1.55; color: #e6d7b8; padding: 12px 16px; background: rgba(255,240,205,.06);
+      border: 1px solid rgba(210,166,70,.3); border-radius: 6px; }
+    .viewer .d:empty { display: none; }
+    .viewer .n { margin-top: 10px; font-size: 13px; letter-spacing: 1px; color: #a8884a; }
     .viewer .n a { color: #d8ad52; }
+    .viewer .n a.go { display: inline-block; padding: 6px 14px; border: 1px solid #d8ad52; border-radius: 4px; text-decoration: none; }
+    .viewer .n a.go:hover { background: #d8ad52; color: #000; }
     .vbtn { position: absolute; width: 46px; height: 46px; border-radius: 50%; cursor: pointer;
       border: 1px solid rgba(210,166,70,.75); background: rgba(0,0,0,.65); color: #d8ad52;
       font-size: 24px; line-height: 42px; text-align: center; padding: 0;
@@ -245,7 +255,7 @@
     <button class="vbtn vprev" id="vprev" aria-label="Previous">&#8249;</button>
     <button class="vbtn vnext" id="vnext" aria-label="Next">&#8250;</button>
     <div class="stage"><img id="vimg" alt=""></div>
-    <div class="bar"><div class="t" id="vtitle"></div><div class="n" id="vnote"></div></div>
+    <div class="bar"><div class="t" id="vtitle"></div><div class="d" id="vdesc"></div><div class="n" id="vnote"></div></div>
   </div>
 
   <script src="archive-data.js"></script>
@@ -285,13 +295,19 @@
     function showFolders() {
       document.title = "The Archives | A Tenth of Mercy";
       var h = '<div class="crumbs"><a href="archive.html">Archive Room</a><span>&rsaquo;</span>Folders</div>' +
-        '<h1>The Archives</h1><p class="sub">Choose a folder to see the documents and images inside.</p><hr class="rule">' +
+        '<h1>The Archives</h1><div class="intro">' +
+        '<p class="lead">Samuel I. Cabell was the wealthiest slave owner in the county. Thirty days after the end of the Civil War, he was murdered in cold blood, for reasons never discovered, by men who were never convicted.</p>' +
+        '<p><em>A Tenth of Mercy</em> is a work of historical fiction. It blends the real history of what happened with a fresh and exciting tale of what might have happened.</p>' +
+        '<p>Many of the characters you will meet in <em>A Tenth of Mercy</em> were real people, and this archive room features many of the documents that helped us trace the real-life people who inhabit our book.</p>' +
+        '</div><hr class="rule"><p class="sub">Choose a folder to see the documents and images inside.</p>' +
         '<div class="folders">';
       ARCHIVE.forEach(function (f) {
         h += '<a class="folder" href="folders.html?f=' + encodeURIComponent(f.id) + '">' +
           '<span class="tab"></span><span class="body"><span class="label"><b>' + esc(f.name) +
           '</b><small>' + countText(f.items.length) + '</small></span></span></a>';
       });
+      h += '<a class="folder" href="timeline.html"><span class="tab"></span><span class="body"><span class="label"><b>Sam Barnes: Timeline</b>' +
+        '<small>His life, document by document</small></span></span></a>';
       page.innerHTML = h + '</div>';
     }
 
@@ -302,19 +318,13 @@
         '<h1>' + esc(f.name) + '</h1><p class="sub">' + countText(f.items.length) + '</p><hr class="rule">';
       if (!f.items.length) { page.innerHTML = h + '<p class="empty">Nothing in this folder yet.</p>'; return; }
       h += '<div class="grid">';
-      f.items.forEach(function (it) {
+      viewable = f.items;
+      f.items.forEach(function (it, idx) {
         var cap = '<span class="cap">' + esc(it.title || it.file) +
           (it.note ? '<small>' + esc(it.note) + '</small>' : '') + '</span>';
-        if (IMG.test(it.file)) {
-          var idx = viewable.length; viewable.push(it);
-          h += '<button type="button" class="item" data-i="' + idx + '"><img class="thumb" loading="lazy" src="' +
-            thumbOf(it.file) + '" alt="' + esc(it.title || it.file) + '">' + cap + '</button>';
-        } else {
-          var isPdf = PDF.test(it.file);
-          h += '<a class="item" href="' + url(it.file) + '" target="_blank" rel="noopener"' +
-            (isPdf ? '' : ' download') + '><span class="pv"><img class="thumb" loading="lazy" src="' + thumbOf(it.file) +
-            '" alt="' + esc(it.title || it.file) + '"><span class="badge">' + (isPdf ? "PDF" : "DOC") + '</span></span>' + cap + '</a>';
-        }
+        var badge = IMG.test(it.file) ? "" : '<span class="badge">' + (PDF.test(it.file) ? "PDF" : "DOC") + '</span>';
+        h += '<button type="button" class="item" data-i="' + idx + '"><span class="pv"><img class="thumb" loading="lazy" src="' +
+          thumbOf(it.file) + '" alt="' + esc(it.title || it.file) + '">' + badge + '</span>' + cap + '</button>';
       });
       page.innerHTML = h + '</div>';
       page.querySelectorAll("img.thumb").forEach(function (im) {
@@ -332,14 +342,23 @@
     var viewer = document.getElementById("viewer"), vimg = document.getElementById("vimg");
     function show(i) {
       cur = (i + viewable.length) % viewable.length;
-      var it = viewable[cur];
-      vimg.src = url(it.file); vimg.alt = it.title || it.file;
+      var it = viewable[cur], isImg = IMG.test(it.file), isPdf = PDF.test(it.file);
+      vimg.style.display = "";
+      vimg.onerror = function () { vimg.style.display = "none"; };
+      vimg.src = isImg ? url(it.file) : thumbOf(it.file);
+      vimg.alt = it.title || it.file;
       document.getElementById("vtitle").textContent = it.title || it.file;
+      document.getElementById("vdesc").textContent = it.desc || "";
+      var label = isImg ? "Open full size" : (isPdf ? "Open the PDF" : "Download the document");
       document.getElementById("vnote").innerHTML = (cur + 1) + " of " + viewable.length +
-        ' &nbsp;&middot;&nbsp; <a href="' + url(it.file) + '" target="_blank" rel="noopener">Open full size</a>';
+        ' &nbsp;&middot;&nbsp; <a class="go" href="' + url(it.file) + '" target="_blank" rel="noopener"' +
+        (!isImg && !isPdf ? ' download' : '') + '>' + label + '</a>';
     }
     function openViewer(i) { show(i); viewer.classList.add("open"); document.body.style.overflow = "hidden"; }
-    function closeViewer() { viewer.classList.remove("open"); document.body.style.overflow = ""; vimg.removeAttribute("src"); }
+    function closeViewer() {
+      viewer.classList.remove("open"); document.body.style.overflow = ""; vimg.removeAttribute("src");
+      if (params.get("from") === "timeline") { location.href = "timeline.html"; }
+    }
     document.getElementById("vclose").addEventListener("click", closeViewer);
     document.getElementById("vprev").addEventListener("click", function () { show(cur - 1); });
     document.getElementById("vnext").addEventListener("click", function () { show(cur + 1); });
@@ -358,6 +377,13 @@
     });
 
     if (folder) showFolder(folder); else showFolders();
+
+    var openFile = params.get("open");
+    if (folder && openFile) {
+      for (var oi = 0; oi < viewable.length; oi++) {
+        if (viewable[oi].file === openFile) { openViewer(oi); break; }
+      }
+    }
   </script>
 </body>
 </html>

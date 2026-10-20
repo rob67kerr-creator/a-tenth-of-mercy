@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sam Barnes: A Timeline | A Tenth of Mercy</title>
+  <style>
+    * { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; background: #100b08; color: #f2e6cf;
+      font-family: Georgia, "Times New Roman", serif; }
+    body { min-height: 100vh; background:
+      radial-gradient(ellipse at 50% 0%, rgba(150,105,40,.22), transparent 60%), #100b08; }
+    /* --------------------------------------------------
+       HAMBURGER MENU
+    -------------------------------------------------- */
+
+    .menu-button {
+      position: fixed;
+      top: 22px;
+      left: 22px;
+      z-index: 1000;
+
+      width: 48px;
+      height: 48px;
+
+      border: 1px solid rgba(210, 166, 70, 0.75);
+      border-radius: 4px;
+
+      background: rgba(0, 0, 0, 0.72);
+      color: #d8ad52;
+
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 6px;
+
+      transition: background 0.25s ease,
+                  transform 0.25s ease;
+    }
+
+    .menu-button:hover {
+      background: rgba(35, 25, 10, 0.9);
+      transform: scale(1.04);
+    }
+
+    .menu-button span {
+      display: block;
+      width: 23px;
+      height: 2px;
+      background: #d8ad52;
+    }
+
+    .menu {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 999;
+
+      width: 300px;
+      max-width: 85vw;
+      height: 100vh;   /* fallback for older browsers */
+      height: 100dvh;  /* correct height on phones */
+
+      padding: 90px 35px 40px;
+
+      background: rgba(8, 6, 3, 0.97);
+      border-right: 1px solid rgba(210, 166, 70, 0.55);
+
+      transform: translateX(-100%);
+      transition: transform 0.35s ease;
+
+      line-height: 1.4;
+    }
+
+    .menu.open {
+      transform: translateX(0);
+    }
+
+    .menu a {
+      display: block;
+      padding: 14px 0;
+
+      color: #d8ad52;
+      text-decoration: none;
+
+      font-size: 18px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+
+      border-bottom: 1px solid rgba(210, 166, 70, 0.18);
+
+      transition: color 0.2s ease,
+                  padding-left 0.2s ease;
+    }
+
+    .menu a:hover {
+      color: #f2d28a;
+      padding-left: 6px;
+    }
+
+    .menu a.active {
+      color: #f2d28a;
+    }
+
+    .menu-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 998;
+
+      background: rgba(0, 0, 0, 0.55);
+
+      opacity: 0;
+      pointer-events: none;
+
+      transition: opacity 0.35s ease;
+    }
+
+    .menu-overlay.open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+
+    .page { max-width: 820px; margin: 0 auto; padding: 84px 22px 80px; }
+    .crumbs { font-size: 13px; letter-spacing: 2px; text-transform: uppercase; color: #a8884a; }
+    .crumbs a { color: #d8ad52; text-decoration: none; }
+    .crumbs a:hover { color: #f2d28a; }
+    .crumbs span { margin: 0 8px; opacity: .6; }
+    h1 { margin: 14px 0 6px; font-weight: normal; font-size: 40px; letter-spacing: 3px;
+      text-transform: uppercase; color: #d8ad52; }
+    .sub { margin: 0 0 34px; font-style: italic; color: #cdb98f; font-size: 19px; }
+    .rule { height: 1px; margin: 0 0 40px; border: 0;
+      background: linear-gradient(90deg, rgba(210,166,70,.7), rgba(210,166,70,.05)); }
+
+    .tl { position: relative; margin: 0; padding: 0 0 0 34px; list-style: none; }
+    .tl::before { content: ""; position: absolute; left: 7px; top: 6px; bottom: 6px; width: 2px;
+      background: linear-gradient(rgba(210,166,70,.75), rgba(210,166,70,.2)); }
+    .ev { position: relative; margin: 0 0 34px; }
+    .ev::before { content: ""; position: absolute; left: -34px; top: 5px; width: 16px; height: 16px;
+      border-radius: 50%; background: #100b08; border: 2px solid #d8ad52; }
+    .ev.key::before { background: #d8ad52; box-shadow: 0 0 0 5px rgba(216,173,82,.22); }
+    .date { font-size: 13px; letter-spacing: 2.5px; text-transform: uppercase; color: #d8ad52; }
+    .ev h2 { margin: 6px 0 8px; font-weight: normal; font-size: 24px; color: #f6ecd2; }
+    .ev p { margin: 0 0 12px; font-size: 17px; line-height: 1.6; color: #e6d7b8; }
+    .ev.key .box { padding: 16px 18px; border: 1px solid rgba(216,173,82,.65); border-radius: 8px;
+      background: rgba(216,173,82,.08); }
+    .links { display: flex; flex-wrap: wrap; gap: 10px; }
+    .links a { display: inline-block; padding: 6px 14px; font-size: 14px; letter-spacing: 1px; color: #d8ad52;
+      text-decoration: none; border: 1px solid rgba(216,173,82,.7); border-radius: 4px;
+      transition: background .2s, color .2s; }
+    .links a:hover, .links a:focus-visible { background: #d8ad52; color: #100b08; outline: none; }
+    .note { margin-top: 10px; font-size: 14px; font-style: italic; color: #a8884a; }
+
+    @media (max-width: 700px) {
+      .page { padding: 76px 16px 60px; }
+      h1 { font-size: 28px; letter-spacing: 2px; }
+      .sub { font-size: 17px; }
+      .ev h2 { font-size: 21px; }
+      .ev p { font-size: 16px; }
+    }
+    @media (max-width: 700px) {
+      .menu-button { top: 14px; left: 14px; width: 43px; height: 43px; }
+      .menu { width: 280px; padding-top: 78px; }
+      .menu a { font-size: 16px; }
+    }
+
+  </style>
+</head>
+<body>
+  <button class="menu-button" id="menuButton" aria-label="Open menu" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+
+  <nav class="menu" id="menu">
+    <a href="index.html">Home</a>
+    <a href="excerpt.html">Read an Excerpt</a>
+    <a href="archive.html" class="active">Archive Room</a>
+    <a href="webisodes.html">Webisodes</a>
+    <a href="journey.html">The Journey</a>
+    <a href="contact.html">Contact</a>
+  </nav>
+  <div class="menu-overlay" id="menuOverlay"></div>
+
+  <main class="page">
+    <div class="crumbs"><a href="archive.html">Archive Room</a><span>&rsaquo;</span><a href="folders.html">Folders</a><span>&rsaquo;</span>Timeline</div>
+    <h1>Sam Barnes</h1>
+    <p class="sub">A timeline, built from the documents in this archive.</p>
+    <hr class="rule">
+    <ol class="tl" id="tl"></ol>
+    <p class="note">Dates marked &ldquo;about&rdquo; are estimated from census ages. Select any button to open the document it comes from.</p>
+  </main>
+
+  <script src="timeline-data.js"></script>
+  <script>
+    const menuButton = document.getElementById("menuButton");
+    const menu = document.getElementById("menu");
+    const menuOverlay = document.getElementById("menuOverlay");
+    function closeMenu() {
+      menu.classList.remove("open");
+      menuOverlay.classList.remove("open");
+      menuButton.setAttribute("aria-expanded", "false");
+    }
+    menuButton.addEventListener("click", function () {
+      const isOpen = menu.classList.toggle("open");
+      menuOverlay.classList.toggle("open", isOpen);
+      menuButton.setAttribute("aria-expanded", isOpen);
+    });
+    menuOverlay.addEventListener("click", closeMenu);
+
+    document.addEventListener("keydown", function (e) { if (e.key === "Escape") closeMenu(); });
+
+    function esc(s) { return String(s).replace(/[&<>"]/g, function (c) {
+      return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); }
+
+    var h = "";
+    TIMELINE.forEach(function (e) {
+      var links = (e.links || []).map(function (l) {
+        return '<a href="folders.html?f=' + encodeURIComponent(l.folder) + '&open=' + encodeURIComponent(l.file) +
+          '&from=timeline">' + esc(l.label) + ' &rarr;</a>';
+      }).join("");
+      h += '<li class="ev' + (e.key ? ' key' : '') + '"><div class="box"><div class="date">' + esc(e.date) +
+        '</div><h2>' + esc(e.title) + '</h2><p>' + esc(e.text) + '</p>' +
+        (links ? '<div class="links">' + links + '</div>' : '') + '</div></li>';
+    });
+    document.getElementById("tl").innerHTML = h;
+  </script>
+</body>
+</html>

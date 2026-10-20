@@ -59,13 +59,14 @@ const ARCHIVE = [
       },
       {
         "file": "samuel-i-cabell-death-certificate-highlited.png",
-        "title": "Samuel I Cabell death register (highlighted)"
+        "title": "Samuel I Cabell death register (highlighted)",
+        "desc": "Samuel I. Cabell\u2019s entry in the death register. Note that the cause of death is given as \u201cMurdered, shot.\u201d"
       },
       {
         "file": "1855-annual-catalogue-albany manual-labor university-1855-56.pdf",
-        "title": "1855\u201356 catalogue: Albany Manual Labor University",
+        "title": "1855\u201356 student index: Albany Manual Labor University",
         "note": "PDF",
-        "desc": "Annual catalogue of the officers and students of the Albany Manual Labor University in Athens County, Ohio, printed in 1856. The highlighted student list shows Mary J., Sydney, Eunice and Seelah Barnes and Lucy M. Cabell, all of \u201cKanawha, Virginia.\u201d Samuel I. Cabell\u2019s will provided for his children\u2019s education, and if Sam Barnes went to college, this is the best evidence that it was here. Sam himself does not appear on this year\u2019s list. Other highlighted names, including T. J. Furgerson and Milton Holland, connect to the 1879 Athens County convention where Sam Barnes spoke."
+        "desc": "Five of Samuel I. Cabell\u2019s children (Mary J., Sydney, Eunice and Seelah Barnes, and Lucy M. Cabell, all of \u201cKanawha, Virginia\u201d) are enrolled at the Albany Manual Labor University in Ohio almost ten years before their father\u2019s death. This changes the assumption that his children were educated only after his death, as his will directed. Several other names in the index connect to Sam Barnes\u2019s later life. Two are highlighted: T. J. Furgerson and Milton Holland match T. J. Ferguson, who presided, and M. M. Holland at the 1879 Nelsonville convention. The index also lists a Nathaniel Wiley of Lee, and the 1867 chancery decree names Lucy\u2019s husband as Nathaniel Wiley. We don\u2019t have proof that Sam Barnes went to school here, but he was already living in Ohio at the time, and he later became connected with these men through his political life. However, his census entries state that he could not read or write, so it is quite possible he never took advantage of the provision in Cabell\u2019s will."
       }
     ]
   },
@@ -76,7 +77,7 @@ const ARCHIVE = [
       {
         "file": "mary-J-ross-1850.png",
         "title": "1850 Census: Mary J. Ross",
-        "desc": "Mary J. Ross, age 15, listed in a household in the 1850 census. She later became Sam Barnes\u2019s wife."
+        "desc": "Mary J. Ross, age 15, would become Mrs. Sam Barnes about three years later. She is not living with her parents. She is living, or boarding, at the home of Thompkins Cane and his wife. Mary went from these humble beginnings to become a shrewd businesswoman, and by the end of her life she owned a great deal of valuable real estate in Arkansas."
       },
       {
         "file": "sam-mary-wedding.jpg",
@@ -86,37 +87,37 @@ const ARCHIVE = [
       {
         "file": "1860-census.jpg",
         "title": "1860 Census: Portsmouth, Ohio",
-        "desc": "Sam Barnes, listed as a boatman, with his wife Mary J. and their young son Sam in Portsmouth, Scioto County, Ohio. The page was enumerated June 21, 1860."
+        "desc": "Portsmouth, Scioto County, Ohio, enumerated June 21, 1860. Sam and Mary have three children, Samuel, Sarah and Pochahontas (as the census spells it), and Sam is listed as a boatman."
       },
       {
         "file": "1870-census.jpg",
         "title": "1870 Census: Union Township, Kanawha County, West Virginia",
-        "desc": "Five years after Samuel I. Cabell\u2019s death. Sam Barnes (spelled \u201cBarns\u201d on this page), a farmer, lives with his wife Mary J. and their son Samuel next to his mother, Mary, and her younger children, on the land they inherited."
+        "desc": "Sam is back in Kanawha with his family, living right next to his mother, Mary Cabell. He is now listed as a farmer, working the family land he inherited. (The page spells his surname \u201cBarns.\u201d)"
       },
       {
         "file": "1880-census-little-rock-arkansas-upright.pdf",
         "title": "1880 Census: Mary J. Barnes, Little Rock, Arkansas",
-        "desc": "Mary J. Barnes, wife of Sam Barnes, on her own with three of her daughters in Little Rock, Pulaski County, Arkansas, enumerated June 4, 1880. Sam is not listed. The handwritten label at the bottom of the page identifies her."
+        "desc": "Sam\u2019s wife, Mary, is now living in Little Rock, Arkansas, enumerated June 4, 1880, with four of their children, three daughters and a son. Her occupation is listed as \u201cKeeping Restaurant.\u201d She is listed as married, but Sam Barnes is not living there. This is corroborated by the 1886 city directory, which also shows no sign of him."
       },
       {
         "file": "1886-arkansas-city-directory.png",
         "title": "1886 Little Rock city directory, pages 136\u2013137",
-        "desc": "Mary J. Barnes and Josie Barnes are both listed as laundresses living at 1314 W. 6th Street in Little Rock, Arkansas (highlighted). Josie is likely Josephine, Mary\u2019s daughter from the 1880 census."
+        "desc": "We see Mary and her daughter Josephine (listed as \u201cJosie\u201d) both listed as laundresses at 1314 W. 6th Street, and still no sign of Sam Barnes (highlighted)."
       },
       {
         "file": "1880-census-marina-a.jpg",
         "title": "1880 Census: Marina, Kanawha County",
-        "desc": "A page from Union South District, Kanawha County, West Virginia, enumerated in June 1880. Marina appears here with her husband, Elijah Hurtt, and their children."
+        "desc": "A page from Union South District, Kanawha County, West Virginia, enumerated in June 1880. We see Sam\u2019s sister, Marina, living with her husband, Elijah Hurtt, and their children in Kanawha. The census taker writes the surname \u201cHart.\u201d"
       },
       {
         "file": "1880-census-marina b.png",
         "title": "1880 Census: Marina (close-up)",
-        "desc": "A close-up of the same page, showing Marina\u2019s household. Her husband\u2019s surname is written \u201cHart\u201d by the census taker."
+        "desc": "A close-up of the same page, showing Marina\u2019s household with her husband, Elijah Hurtt."
       },
       {
         "file": "1900_marina_census_highlighted.png",
         "title": "1900 Census: Marina",
-        "desc": "Marina and her husband, Elijah Hurtt, on their own farm in 1900, with their grown sons (highlighted). The census taker\u2019s spellings of the names differ from other records."
+        "desc": "Sam\u2019s sister Marina and her family in 1900 (highlighted), living on their own farm with her husband, Elijah Hurtt, and their grown sons. The census taker spells the surname \u201cHurst.\u201d"
       }
     ]
   },
@@ -137,7 +138,7 @@ const ARCHIVE = [
       {
         "file": "sam-petition-c.jpg",
         "title": "Chancery suit: the decree dividing the land, December 13, 1867",
-        "desc": "The court orders Samuel I. Cabell\u2019s land divided into eleven equal parts. Sam, Mary and nine of the children each receive one share, and commissioners are appointed to survey and allot them."
+        "desc": "After the death of Samuel I. Cabell, Sam Barnes brought this suit against his mother and the other heirs to have the land divided. The court orders it split into eleven equal shares: one each for Sam, his mother Mary, and nine of his brothers and sisters, with commissioners appointed to survey and allot them."
       },
       {
         "file": "Transcription_of_Sam_Barnes_Vs_Mary_Barnes_.pdf",
@@ -147,29 +148,29 @@ const ARCHIVE = [
       },
       {
         "file": "mary-petition-b.jpg",
-        "title": "October 25, 1869: the children\u2019s surname becomes Cabell",
-        "desc": "On Mary Barnes\u2019s petition, the court orders that her minor children\u2019s surname be changed from Barns to Cabell."
+        "title": "October 25, 1869: Mary\u2019s youngest children become Cabell",
+        "desc": "Mary Barnes successfully petitions the court to have her youngest children\u2019s surname changed from Barns to Cabell. This is an important document, because it shows that only her youngest children took the name, which dispels the previously held belief that all of her children had their names changed."
       },
       {
         "file": "mary-petition-a.jpg",
         "title": "March 24, 1870: Mary Barnes becomes Mary Cabell",
-        "desc": "The court orders Mary Barnes\u2019s surname changed to Cabell, as she asked in her petition."
+        "desc": "Mary Barnes successfully petitions the court to have her own last name legally changed to Cabell."
       },
       {
         "file": "sam-sells-land-1.jpg",
         "title": "1880 deed: Sam Barnes sells his land, page 1",
-        "desc": "Deed dated February 28, 1880, in which Samuel Barnes and his wife Mary J., \u201cof the County of Athens, State of Ohio,\u201d sell lot No. 10 (the land allotted to Sam in the partition) to the Overseers of the Poor of Kanawha County for $1,700. The top of the page is the end of an unrelated deed."
+        "desc": "Deed dated February 28, 1880. Sam and his wife Mary, \u201cof the County of Athens, State of Ohio,\u201d sell their Parcel 10 (lot No. 10 in the partition of Samuel I. Cabell\u2019s land) to the Overseers of the Poor of Kanawha County for $1,700. The land adjoins the county\u2019s Poor House farm, and it became part of it. The top of the page is the end of an unrelated deed."
       },
       {
         "file": "sam-sells-land-2.jpg",
         "title": "1880 deed: Sam Barnes sells his land, page 2",
-        "desc": "The signatures of Samuel and Mary J. Barnes, the county committee\u2019s report, and the certificates of acknowledgment. Sam signs in Kanawha County on March 1, 1880, and Mary J. in Athens County, Ohio, on March 6. The deed is recorded March 11, 1880. This is the last known public record of Sam Barnes. By June 1880, his wife appears in the census in Little Rock, Arkansas, on her own with three of her daughters."
+        "desc": "The signatures of Samuel and Mary J. Barnes, the county committee\u2019s report, and the certificates of acknowledgment. Sam signs in Kanawha County on March 1, 1880, and Mary J. in Athens County, Ohio, on March 6. The deed is recorded March 11, 1880. This is the last known written document of Sam Barnes. A few months later, in June 1880, his wife turns up in the Little Rock census as married, but living with their children only."
       },
       {
         "file": "Transcription_of_Sam_Barnes_land_sale.pdf",
         "title": "Transcription: Sam Barnes land sale, 1880",
         "note": "PDF",
-        "desc": "A typed transcription of the 1880 deed and its certificates. This is the last known public record of Sam Barnes. By June 1880, his wife appears in the census in Little Rock, Arkansas, on her own with three of her daughters."
+        "desc": "A typed transcription of the 1880 deed and its certificates. This is the last known written document of Sam Barnes. A few months later, in June 1880, his wife turns up in the Little Rock census as married, but living with their children only."
       }
     ]
   },
@@ -201,13 +202,13 @@ const ARCHIVE = [
         "file": "athens-messenger-jul-29-1869-highlight.pdf",
         "title": "Athens Messenger, July 29, 1869",
         "note": "PDF",
-        "desc": "A barn belonging to Mr. Samuel Barnes of Albany was destroyed by fire on a Tuesday afternoon, and the cause of the fire was unknown. Albany is in Athens County, Ohio. We believe this is the same Sam Barnes."
+        "desc": "A barn belonging to Mr. Samuel Barnes of Albany was destroyed by fire on a Tuesday afternoon, and the origin of the fire is unknown. We believe this story is about Sam Barnes, who at this point was living in Albany, Athens County, Ohio. By the 1870 census he is back in Kanawha."
       },
       {
         "file": "athens-messenger-sep-04-1879-highlight.pdf",
         "title": "Athens Messenger, September 4, 1879: the Nelsonville convention",
         "note": "PDF",
-        "desc": "A report on the first convention of Black voters in Athens County, held at Nelsonville, Ohio, on August 30, 1879. Samuel Barnes called the convention to order, served on the committee on resolutions, was named for York Township on the committee of fourteen, and spoke near the close. T. J. Ferguson, who presided, and M. M. Holland, an honorary member, share names with students highlighted in the 1855\u201356 Albany Manual Labor University catalogue, linking Sam\u2019s later years to the school."
+        "desc": "The \u201cColored Convention\u201d at Nelsonville, Ohio, on August 30, 1879, was a very high-profile event, and Sam Barnes played a large role in it. He called the convention to order, served on the committee on resolutions, was named for York Township on the committee of fourteen, and spoke near the close. Several names in this article match names in the Albany student index, including T. J. Ferguson, who presided, and M. M. Holland, an honorary member. This shows a possible connection Sam might have had with them for years."
       }
     ]
   },
