@@ -108,5 +108,11 @@ const TIMELINE = [
     title: "Still no sign of Sam",
     text: "Mary J. and her daughter Josie (Josephine) are both listed as laundresses at the same Little Rock address. Sam is not listed.",
     links: [ { label: "1886 city directory", folder: "census", file: "1886-arkansas-city-directory.png" } ]
+  },
+  {
+    date: "November 4, 1904",
+    title: "Mary has prospered in Little Rock",
+    text: "A Little Rock newspaper reports a $5,000 real estate transfer from Mary Barnes to Josephine Barnes: two lots in Braddock\u2019s Addition and a quarter-quarter section of land. The 15-year-old who appears in someone else\u2019s household in the 1850 census now owns valuable property in Little Rock. (The paper prints Mary\u2019s middle initial as T.)",
+    links: [ { label: "Gazette, 1904", folder: "newspapers", file: "mary-barnes-1904-real-estate.jpg" } ]
   }
 ];

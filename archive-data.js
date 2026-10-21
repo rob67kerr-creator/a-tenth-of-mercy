@@ -209,6 +209,11 @@ const ARCHIVE = [
         "title": "Athens Messenger, September 4, 1879: the Nelsonville convention",
         "note": "PDF",
         "desc": "The \u201cColored Convention\u201d at Nelsonville, Ohio, on August 30, 1879, was a very high-profile event, and Sam Barnes played a large role in it. He called the convention to order, served on the committee on resolutions, was named for York Township on the committee of fourteen, and spoke near the close. Several names in this article match names in the Albany student index, including T. J. Ferguson, who presided, and M. M. Holland, an honorary member. This shows a possible connection Sam might have had with them for years."
+      },
+      {
+        "file": "mary-barnes-1904-real-estate.jpg",
+        "title": "Daily Arkansas Gazette, November 4, 1904: Mary Barnes\u2019s property transfer",
+        "desc": "In the \u201cReal Estate Transfers\u201d column, Mary Barnes (the paper prints her middle initial as \u201cT.\u201d) transfers to Josephine Barnes two lots in Braddock\u2019s Addition and a quarter-quarter section of land, for $5,000 (highlighted). Josephine is presumably her daughter, the Josie of the 1886 directory. Daily Arkansas Gazette, Little Rock, November 4, 1904, page 4. Mary, a 15-year-old living in someone else\u2019s household in the 1850 census, had by now prospered greatly in Little Rock."
       }
     ]
   },
