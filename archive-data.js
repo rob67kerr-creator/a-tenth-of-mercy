@@ -200,13 +200,13 @@ const ARCHIVE = [
       },
       {
         "file": "athens-messenger-jul-29-1869-highlight.pdf",
-        "title": "Athens Messenger, July 29, 1869",
+        "title": "Athens Messenger, July 29, 1869, page 3",
         "note": "PDF",
         "desc": "A barn belonging to Mr. Samuel Barnes of Albany was destroyed by fire on a Tuesday afternoon, and the origin of the fire is unknown. We believe this story is about Sam Barnes, who at this point was living in Albany, Athens County, Ohio. By the 1870 census he is back in Kanawha."
       },
       {
         "file": "athens-messenger-sep-04-1879-highlight.pdf",
-        "title": "Athens Messenger, September 4, 1879: the Nelsonville convention",
+        "title": "Athens Messenger, September 4, 1879, page 1: the Nelsonville convention",
         "note": "PDF",
         "desc": "The \u201cColored Convention\u201d at Nelsonville, Ohio, on August 30, 1879, was a very high-profile event, and Sam Barnes played a large role in it. He called the convention to order, served on the committee on resolutions, was named for York Township on the committee of fourteen, and spoke near the close. Several names in this article match names in the Albany student index, including T. J. Ferguson, who presided, and M. M. Holland, an honorary member. This shows a possible connection Sam might have had with them for years."
       },
