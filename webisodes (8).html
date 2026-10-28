@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Webisodes | A Tenth of Mercy</title>
+  <style>
+    * { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; background: #100b08; color: #f2e6cf;
+      font-family: Georgia, "Times New Roman", serif; }
+    body { min-height: 100vh; min-height: 100dvh; background:
+      radial-gradient(ellipse at 50% 0%, rgba(150,105,40,.22), transparent 60%), #100b08; }
+    /* --------------------------------------------------
+       HAMBURGER MENU
+    -------------------------------------------------- */
+
+    .menu-button {
+      position: fixed;
+      top: 22px;
+      left: 22px;
+      z-index: 1000;
+
+      width: 48px;
+      height: 48px;
+
+      border: 1px solid rgba(210, 166, 70, 0.75);
+      border-radius: 4px;
+
+      background: rgba(0, 0, 0, 0.72);
+      color: #d8ad52;
+
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 6px;
+
+      transition: background 0.25s ease,
+                  transform 0.25s ease;
+    }
+
+    .menu-button:hover {
+      background: rgba(35, 25, 10, 0.9);
+      transform: scale(1.04);
+    }
+
+    .menu-button span {
+      display: block;
+      width: 23px;
+      height: 2px;
+      background: #d8ad52;
+    }
+
+    .menu {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 999;
+
+      width: 300px;
+      max-width: 85vw;
+      height: 100vh;   /* fallback for older browsers */
+      height: 100dvh;  /* correct height on phones */
+
+      padding: 90px 35px 40px;
+
+      background: rgba(8, 6, 3, 0.97);
+      border-right: 1px solid rgba(210, 166, 70, 0.55);
+
+      transform: translateX(-100%);
+      transition: transform 0.35s ease;
+
+      line-height: 1.4;
+    }
+
+    .menu.open {
+      transform: translateX(0);
+    }
+
+    .menu a {
+      display: block;
+      padding: 14px 0;
+
+      color: #d8ad52;
+      text-decoration: none;
+
+      font-size: 18px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+
+      border-bottom: 1px solid rgba(210, 166, 70, 0.18);
+
+      transition: color 0.2s ease,
+                  padding-left 0.2s ease;
+    }
+
+    .menu a:hover {
+      color: #f2d28a;
+      padding-left: 6px;
+    }
+
+    .menu a.active {
+      color: #f2d28a;
+    }
+
+    .menu-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 998;
+
+      background: rgba(0, 0, 0, 0.55);
+
+      opacity: 0;
+      pointer-events: none;
+
+      transition: opacity 0.35s ease;
+    }
+
+    .menu-overlay.open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+
+    .page { max-width: 880px; margin: 0 auto; padding: 84px 22px 80px; }
+    .hero { position: relative; border: 1px solid rgba(212,167,74,.55); border-radius: 6px; overflow: hidden;
+      box-shadow: 0 14px 40px rgba(0,0,0,.65), 0 0 40px rgba(212,167,74,.12); line-height: 0; }
+    .hero img { display: block; width: 100%; height: auto; }
+    .hero::after { content: ""; position: absolute; inset: 0;
+      background: linear-gradient(to bottom, rgba(16,11,8,0) 38%, rgba(16,11,8,.92) 100%); pointer-events: none; }
+    .hero h1 { position: absolute; z-index: 2; left: 0; right: 0; bottom: 22px; margin: 0; text-align: center;
+      font-weight: normal; font-size: 54px; letter-spacing: 6px; text-transform: uppercase; color: #d8ad52;
+      text-shadow: 0 2px 18px rgba(0,0,0,.9); line-height: 1.1; }
+    .actions { display: flex; flex-direction: column; align-items: stretch; gap: 16px; max-width: 620px; margin: 38px auto 0; }
+    .btn { display: block; width: 100%; padding: 18px 24px; text-align: center; text-decoration: none; cursor: pointer;
+      font: inherit; font-size: 22px; letter-spacing: 3px; text-transform: uppercase; color: #f6ecd2;
+      background: linear-gradient(rgba(216,173,82,.16), rgba(216,173,82,.07));
+      border: 1px solid rgba(216,173,82,.8); border-radius: 6px;
+      transition: background .2s, color .2s, box-shadow .2s, transform .2s; -webkit-tap-highlight-color: transparent; }
+    .btn small { display: block; margin-top: 6px; font-size: 14px; letter-spacing: 1.5px; text-transform: none;
+      font-style: italic; color: #cdb98f; }
+    .btn:hover, .btn:focus-visible { background: #d8ad52; color: #100b08; outline: none; transform: translateY(-2px);
+      box-shadow: 0 8px 22px rgba(0,0,0,.6), 0 0 22px rgba(216,173,82,.3); }
+    .btn:hover small, .btn:focus-visible small { color: #3a2a10; }
+    .btn b { color: #f2d28a; font-weight: bold; }
+    .btn:hover b, .btn:focus-visible b { color: #100b08; }
+    @media (max-width: 700px) {
+      .page { padding: 76px 14px 60px; }
+      .hero h1 { font-size: 32px; letter-spacing: 4px; bottom: 14px; }
+      .btn { font-size: 18px; padding: 16px 16px; letter-spacing: 2px; }
+      .actions { margin-top: 28px; }
+    }
+
+    /* Desktop only: size the hero so the buttons show without scrolling.
+       Offset = top padding + gap + three buttons + bottom breathing room.
+       The photo is trimmed (not squished) on shorter screens. */
+    @media (min-width: 701px) {
+      .hero img {
+        height: calc(100vh - 442px);
+        height: calc(100dvh - 442px);
+        min-height: 220px;
+        object-fit: cover;
+        object-position: center;
+      }
+    }
+
+/* --------------------------------------------------
+       VIDEO MODAL
+       Each video sets its own shape (--vw and --vh) so a
+       video that isn't 16:9 fills the player properly.
+    -------------------------------------------------- */
+
+    .video-modal {
+      --vw: 16;
+      --vh: 9;
+
+      position: fixed;
+      inset: 0;
+      z-index: 2000;
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      padding: 30px;
+
+      background: rgba(0, 0, 0, 0.92);
+
+      opacity: 0;
+      visibility: hidden;
+
+      transition: opacity 0.3s ease,
+                  visibility 0.3s ease;
+    }
+
+    .video-modal.open {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .video-box {
+      position: relative;
+
+      /*
+        As wide as possible, but never taller than
+        about 80% of the screen.
+      */
+      width: min(1100px, 94vw, calc(80vh * var(--vw) / var(--vh)));
+      width: min(1100px, 94vw, calc(80dvh * var(--vw) / var(--vh)));
+
+      background: #000;
+
+      box-shadow:
+        0 0 0 1px rgba(212, 167, 74, 0.55),
+        0 0 50px rgba(0, 0, 0, 0.9);
+
+      line-height: 0;
+    }
+
+    .video-container {
+      position: relative;
+      width: 100%;
+      aspect-ratio: var(--vw) / var(--vh);
+    }
+
+    .video-container iframe {
+      position: absolute;
+      inset: 0;
+
+      width: 100%;
+      height: 100%;
+
+      border: 0;
+    }
+
+    .video-title {
+      position: absolute;
+      left: 0;
+      top: -42px;
+
+      color: #d8ad52;
+
+      font-size: 16px;
+      letter-spacing: 2px;
+      line-height: 1.2;
+      text-transform: uppercase;
+    }
+
+    .close-video {
+      position: absolute;
+
+      top: -50px;
+      right: 0;
+
+      width: 38px;
+      height: 38px;
+
+      border: 1px solid rgba(212, 167, 74, 0.7);
+      border-radius: 50%;
+
+      background: rgba(0, 0, 0, 0.8);
+      color: #d8ad52;
+
+      font-family: Arial, sans-serif;
+      font-size: 25px;
+      line-height: 35px;
+
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+
+      transition: background 0.2s ease,
+                  color 0.2s ease;
+    }
+
+    .close-video:hover {
+      background: #d8ad52;
+      color: #000;
+    }
+
+    
+    @media (max-width: 700px) {
+      .video-modal { padding: 15px; }
+      .video-title { top: -34px; font-size: 13px; }
+      .close-video { top: -42px; width: 32px; height: 32px; font-size: 21px; line-height: 29px; }
+    }
+    @media (max-width: 700px) {
+      .menu-button { top: 14px; left: 14px; width: 43px; height: 43px; }
+      .menu { width: 280px; padding-top: 78px; }
+      .menu a { font-size: 16px; }
+    }
+
+  </style>
+</head>
+<body>
+  <button class="menu-button" id="menuButton" aria-label="Open menu" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+
+  <nav class="menu" id="menu">
+    <a href="index.html">Home</a>
+    <a href="excerpt.html">Read an Excerpt</a>
+    <a href="archive.html">Archive Room</a>
+    <a href="webisodes.html" class="active">Webisodes</a>
+    <a href="journey.html">The Journey</a>
+    <a href="contact.html">Contact</a>
+  </nav>
+  <div class="menu-overlay" id="menuOverlay"></div>
+
+  <main class="page">
+    <div class="hero">
+      <img src="webisodes-hero.jpg" alt="An old film projector surrounded by reels of film">
+      <h1>Webisodes</h1>
+    </div>
+    <div class="actions">
+      <button class="btn" id="reel-one" aria-label="Watch Episode One: A Visit to Institute, West Virginia">
+        Episode One<small>A Visit to Institute, West Virginia</small></button>
+      <button class="btn" id="reel-two" aria-label="Watch Episode Two: A Visit to the Cultural Center">
+        Episode Two<small>A Visit to the Cultural Center</small></button>
+      <button class="btn" id="reel-three" aria-label="Watch the Blooper Reel">
+        Blooper Reel</button>
+    </div>
+  </main>
+
+  <div class="video-modal" id="videoModal" aria-hidden="true">
+    <div class="video-box">
+      <div class="video-title" id="videoTitle"></div>
+      <button class="close-video" id="closeVideo" aria-label="Close video">&times;</button>
+      <div class="video-container">
+        <iframe id="videoFrame" src="" title="A Tenth of Mercy Webisode"
+          allow="autoplay; encrypted-media; picture-in-picture"
+          referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const menuButton = document.getElementById("menuButton");
+    const menu = document.getElementById("menu");
+    const menuOverlay = document.getElementById("menuOverlay");
+    function closeMenu() {
+      menu.classList.remove("open");
+      menuOverlay.classList.remove("open");
+      menuButton.setAttribute("aria-expanded", "false");
+    }
+    menuButton.addEventListener("click", function () {
+      const isOpen = menu.classList.toggle("open");
+      menuOverlay.classList.toggle("open", isOpen);
+      menuButton.setAttribute("aria-expanded", isOpen);
+    });
+    menuOverlay.addEventListener("click", closeMenu);
+
+    /* =================================================
+       WEBISODE VIDEOS
+       w and h are the SHAPE of each video (width x height).
+       Most YouTube videos are 16 x 9; a vertical phone
+       video is 9 x 16.
+    ================================================= */
+    const videos = {
+      "reel-one":   { title: "Episode 1 \u2014 A Visit to Institute, WV", id: "VohUntGNZ48", w: 16, h: 9 },
+      "reel-two":   { title: "Episode 2 \u2014 A Visit to the Cultural Center", id: "X7b2kU7Esuw", w: 16, h: 9 },
+      "reel-three": { title: "Blooper Reel", id: "nstKud-OxAo", w: 9, h: 16 }
+    };
+
+    const videoModal = document.getElementById("videoModal");
+    const videoFrame = document.getElementById("videoFrame");
+    const videoTitle = document.getElementById("videoTitle");
+    const closeVideo = document.getElementById("closeVideo");
+
+    function openVideo(reelId) {
+      const video = videos[reelId];
+      if (!video) { return; }
+      videoTitle.textContent = video.title;
+      videoModal.style.setProperty("--vw", video.w);
+      videoModal.style.setProperty("--vh", video.h);
+      videoFrame.src = "https://www.youtube-nocookie.com/embed/" + video.id + "?autoplay=1&rel=0";
+      videoModal.classList.add("open");
+      videoModal.setAttribute("aria-hidden", "false");
+      document.body.style.overflow = "hidden";
+    }
+
+    function closeVideoWindow() {
+      videoModal.classList.remove("open");
+      videoModal.setAttribute("aria-hidden", "true");
+      videoFrame.src = "";   /* removing the URL stops the video completely */
+      document.body.style.overflow = "";
+    }
+
+    ["reel-one", "reel-two", "reel-three"].forEach(function (id) {
+      document.getElementById(id).addEventListener("click", function () { openVideo(id); });
+    });
+    closeVideo.addEventListener("click", closeVideoWindow);
+    videoModal.addEventListener("click", function (event) {
+      if (event.target === videoModal) { closeVideoWindow(); }
+    });
+    document.addEventListener("keydown", function (event) {
+      if (event.key === "Escape") {
+        if (videoModal.classList.contains("open")) { closeVideoWindow(); }
+        closeMenu();
+      }
+    });
+  </script>
+</body>
+</html>

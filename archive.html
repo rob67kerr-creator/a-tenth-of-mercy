@@ -154,6 +154,19 @@
       .actions { margin-top: 28px; }
     }
 
+    /* Desktop only: size the hero so the buttons show without scrolling.
+       Offset = top padding + gap + button height + bottom breathing room.
+       The photo is trimmed (not squished) on shorter screens. */
+    @media (min-width: 701px) {
+      .hero img {
+        height: calc(100vh - 232px);
+        height: calc(100dvh - 232px);
+        min-height: 220px;
+        object-fit: cover;
+        object-position: center;
+      }
+    }
+
     @media (max-width: 700px) {
       .menu-button { top: 14px; left: 14px; width: 43px; height: 43px; }
       .menu { width: 280px; padding-top: 78px; }
