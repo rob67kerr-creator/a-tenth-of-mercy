@@ -3,59 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
   <title>Webisodes | A Tenth of Mercy</title>
-
   <style>
-    * {
-      box-sizing: border-box;
-    }
-
-    html,
-    body {
-      margin: 0;
-      padding: 0;
-      width: 100%;
-      background: #000;
-      font-family: Georgia, "Times New Roman", serif;
-    }
-
-    body {
-      min-height: 100vh;
-      min-height: 100dvh;
-
-      display: flex;
-      justify-content: center;
-      align-items: center;
-
-      overflow-x: hidden;
-    }
-
-    /* --------------------------------------------------
-       ROOM
-       The artwork is 2:3 (tall). This sizes it so the
-       WHOLE picture fits on screen with no scrolling:
-       - phones: as wide as the screen allows
-       - desktop: as tall as the window allows
-    -------------------------------------------------- */
-
-    .room {
-      position: relative;
-
-      width: min(100vw, calc(100vh * 2 / 3));
-      width: min(100vw, calc(100dvh * 2 / 3));
-
-      line-height: 0;
-    }
-
-    .room-image {
-      display: block;
-      width: 100%;
-      height: auto;
-      user-select: none;
-      -webkit-user-drag: none;
-    }
-
+    * { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; background: #100b08; color: #f2e6cf;
+      font-family: Georgia, "Times New Roman", serif; }
+    body { min-height: 100vh; min-height: 100dvh; background:
+      radial-gradient(ellipse at 50% 0%, rgba(150,105,40,.22), transparent 60%), #100b08; }
     /* --------------------------------------------------
        HAMBURGER MENU
     -------------------------------------------------- */
@@ -170,71 +124,37 @@
       pointer-events: auto;
     }
 
-    /* --------------------------------------------------
-       CLICKABLE BUTTONS (sit on top of the artwork's
-       three built-in buttons). Positions are percentages
-       of the image, so they scale with it.
-    -------------------------------------------------- */
 
-    .reel {
-      position: absolute;
-      z-index: 10;
-
-      padding: 0;
-      background: transparent;
-      border: 1px solid transparent;
-      border-radius: 10px;
-
-      cursor: pointer;
-      -webkit-tap-highlight-color: transparent;
-
-      transition: background 0.25s ease,
-                  border-color 0.25s ease,
-                  box-shadow 0.25s ease;
+    .page { max-width: 880px; margin: 0 auto; padding: 84px 22px 80px; }
+    .hero { position: relative; border: 1px solid rgba(212,167,74,.55); border-radius: 6px; overflow: hidden;
+      box-shadow: 0 14px 40px rgba(0,0,0,.65), 0 0 40px rgba(212,167,74,.12); line-height: 0; }
+    .hero img { display: block; width: 100%; height: auto; }
+    .hero::after { content: ""; position: absolute; inset: 0;
+      background: linear-gradient(to bottom, rgba(16,11,8,0) 38%, rgba(16,11,8,.92) 100%); pointer-events: none; }
+    .hero h1 { position: absolute; z-index: 2; left: 0; right: 0; bottom: 22px; margin: 0; text-align: center;
+      font-weight: normal; font-size: 54px; letter-spacing: 6px; text-transform: uppercase; color: #d8ad52;
+      text-shadow: 0 2px 18px rgba(0,0,0,.9); line-height: 1.1; }
+    .actions { display: flex; flex-direction: column; align-items: stretch; gap: 16px; max-width: 620px; margin: 38px auto 0; }
+    .btn { display: block; width: 100%; padding: 18px 24px; text-align: center; text-decoration: none; cursor: pointer;
+      font: inherit; font-size: 22px; letter-spacing: 3px; text-transform: uppercase; color: #f6ecd2;
+      background: linear-gradient(rgba(216,173,82,.16), rgba(216,173,82,.07));
+      border: 1px solid rgba(216,173,82,.8); border-radius: 6px;
+      transition: background .2s, color .2s, box-shadow .2s, transform .2s; -webkit-tap-highlight-color: transparent; }
+    .btn small { display: block; margin-top: 6px; font-size: 14px; letter-spacing: 1.5px; text-transform: none;
+      font-style: italic; color: #cdb98f; }
+    .btn:hover, .btn:focus-visible { background: #d8ad52; color: #100b08; outline: none; transform: translateY(-2px);
+      box-shadow: 0 8px 22px rgba(0,0,0,.6), 0 0 22px rgba(216,173,82,.3); }
+    .btn:hover small, .btn:focus-visible small { color: #3a2a10; }
+    .btn b { color: #f2d28a; font-weight: bold; }
+    .btn:hover b, .btn:focus-visible b { color: #100b08; }
+    @media (max-width: 700px) {
+      .page { padding: 76px 14px 60px; }
+      .hero h1 { font-size: 32px; letter-spacing: 4px; bottom: 14px; }
+      .btn { font-size: 18px; padding: 16px 16px; letter-spacing: 2px; }
+      .actions { margin-top: 28px; }
     }
 
-    .reel:hover,
-    .reel:focus-visible {
-      background: rgba(212, 167, 74, 0.12);
-      border-color: rgba(212, 167, 74, 0.55);
-      box-shadow: 0 0 22px rgba(212, 167, 74, 0.25);
-      outline: none;
-    }
-
-    #reel-one {
-      left: 25%;
-      top: 48%;
-      width: 50.2%;
-      height: 7.8%;
-    }
-
-    #reel-two {
-      left: 25%;
-      top: 57.2%;
-      width: 50.2%;
-      height: 7.8%;
-    }
-
-    #reel-three {
-      left: 25%;
-      top: 66.4%;
-      width: 48.8%;
-      height: 7.7%;
-    }
-
-    /*
-      ALIGNMENT TEST (temporary): to see the clickable areas,
-      change the <body> tag near the bottom of the page to
-      <body class="debug"> and refresh. Change it back when
-      everything lines up.
-    */
-
-    body.debug .reel {
-      border-color: rgba(255, 0, 0, 0.8);
-      background: rgba(255, 0, 0, 0.15);
-    }
-
-    /* --------------------------------------------------
+/* --------------------------------------------------
        VIDEO MODAL
        Each video sets its own shape (--vw and --vh) so a
        video that isn't 16:9 fills the player properly.
@@ -347,335 +267,127 @@
       color: #000;
     }
 
-    /* --------------------------------------------------
-       MOBILE
-    -------------------------------------------------- */
-
+    
     @media (max-width: 700px) {
-
-      .menu-button {
-        top: 14px;
-        left: 14px;
-
-        width: 43px;
-        height: 43px;
-      }
-
-      .menu {
-        width: 280px;
-        padding-top: 78px;
-      }
-
-      .menu a {
-        font-size: 16px;
-      }
-
-      .video-modal {
-        padding: 15px;
-      }
-
-      .video-title {
-        top: -34px;
-        font-size: 13px;
-      }
-
-      .close-video {
-        top: -42px;
-
-        width: 32px;
-        height: 32px;
-
-        font-size: 21px;
-        line-height: 29px;
-      }
+      .video-modal { padding: 15px; }
+      .video-title { top: -34px; font-size: 13px; }
+      .close-video { top: -42px; width: 32px; height: 32px; font-size: 21px; line-height: 29px; }
     }
+    @media (max-width: 700px) {
+      .menu-button { top: 14px; left: 14px; width: 43px; height: 43px; }
+      .menu { width: 280px; padding-top: 78px; }
+      .menu a { font-size: 16px; }
+    }
+
   </style>
 </head>
-
 <body>
-
-  <!-- ================================================
-       HAMBURGER BUTTON
-  ================================================= -->
-
-  <button
-    class="menu-button"
-    id="menuButton"
-    aria-label="Open menu"
-    aria-expanded="false">
-
-    <span></span>
-    <span></span>
-    <span></span>
-
+  <button class="menu-button" id="menuButton" aria-label="Open menu" aria-expanded="false">
+    <span></span><span></span><span></span>
   </button>
 
-
-  <!-- ================================================
-       NAVIGATION
-  ================================================= -->
-
   <nav class="menu" id="menu">
-
     <a href="index.html">Home</a>
-
     <a href="excerpt.html">Read an Excerpt</a>
-
     <a href="archive.html">Archive Room</a>
-
     <a href="webisodes.html" class="active">Webisodes</a>
-
     <a href="journey.html">The Journey</a>
-
     <a href="contact.html">Contact</a>
-
   </nav>
-
   <div class="menu-overlay" id="menuOverlay"></div>
 
-
-  <!-- ================================================
-       WEBISODES ROOM
-  ================================================= -->
-
-  <main class="room">
-
-    <img
-      src="webisodes2.png"
-      class="room-image"
-      alt="Webisodes for A Tenth of Mercy: Episode One, Episode Two, and the Blooper Reel">
-
-    <!-- EPISODE ONE -->
-    <button
-      class="reel"
-      id="reel-one"
-      aria-label="Watch Episode One: A Visit to Institute, West Virginia">
-    </button>
-
-    <!-- EPISODE TWO -->
-    <button
-      class="reel"
-      id="reel-two"
-      aria-label="Watch Episode Two: A Visit to the Cultural Center">
-    </button>
-
-    <!-- BLOOPER REEL -->
-    <button
-      class="reel"
-      id="reel-three"
-      aria-label="Watch the Blooper Reel">
-    </button>
-
+  <main class="page">
+    <div class="hero">
+      <img src="webisodes-hero.jpg" alt="An old film projector surrounded by reels of film">
+      <h1>Webisodes</h1>
+    </div>
+    <div class="actions">
+      <button class="btn" id="reel-one" aria-label="Watch Episode One: A Visit to Institute, West Virginia">
+        Episode One<small>A Visit to Institute, West Virginia</small></button>
+      <button class="btn" id="reel-two" aria-label="Watch Episode Two: A Visit to the Cultural Center">
+        Episode Two<small>A Visit to the Cultural Center</small></button>
+      <button class="btn" id="reel-three" aria-label="Watch the Blooper Reel">
+        Blooper Reel</button>
+    </div>
   </main>
 
-
-  <!-- ================================================
-       VIDEO WINDOW
-  ================================================= -->
-
-  <div
-    class="video-modal"
-    id="videoModal"
-    aria-hidden="true">
-
+  <div class="video-modal" id="videoModal" aria-hidden="true">
     <div class="video-box">
-
-      <div
-        class="video-title"
-        id="videoTitle">
-      </div>
-
-      <button
-        class="close-video"
-        id="closeVideo"
-        aria-label="Close video">
-        ×
-      </button>
-
+      <div class="video-title" id="videoTitle"></div>
+      <button class="close-video" id="closeVideo" aria-label="Close video">&times;</button>
       <div class="video-container">
-
-        <iframe
-          id="videoFrame"
-          src=""
-          title="A Tenth of Mercy Webisode"
+        <iframe id="videoFrame" src="" title="A Tenth of Mercy Webisode"
           allow="autoplay; encrypted-media; picture-in-picture"
-          referrerpolicy="strict-origin-when-cross-origin"
-          allowfullscreen>
-        </iframe>
-
+          referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
       </div>
-
     </div>
-
   </div>
 
-
   <script>
-
-    /* =================================================
-       MENU
-    ================================================= */
-
     const menuButton = document.getElementById("menuButton");
     const menu = document.getElementById("menu");
     const menuOverlay = document.getElementById("menuOverlay");
-
-    function toggleMenu() {
-
-      const isOpen = menu.classList.toggle("open");
-
-      menuOverlay.classList.toggle("open", isOpen);
-
-      menuButton.setAttribute("aria-expanded", isOpen);
-
-    }
-
     function closeMenu() {
-
       menu.classList.remove("open");
-
       menuOverlay.classList.remove("open");
-
       menuButton.setAttribute("aria-expanded", "false");
-
     }
-
-    menuButton.addEventListener("click", toggleMenu);
-
+    menuButton.addEventListener("click", function () {
+      const isOpen = menu.classList.toggle("open");
+      menuOverlay.classList.toggle("open", isOpen);
+      menuButton.setAttribute("aria-expanded", isOpen);
+    });
     menuOverlay.addEventListener("click", closeMenu);
-
 
     /* =================================================
        WEBISODE VIDEOS
-
        w and h are the SHAPE of each video (width x height).
-       Most YouTube videos are 16 x 9.
-
-       If the Blooper Reel looks smaller than the others,
-       it is probably a different shape. Change its w and h:
-         vertical phone video  ->  w: 9,  h: 16
-         old-TV / square-ish   ->  w: 4,  h: 3
-         perfect square        ->  w: 1,  h: 1
+       Most YouTube videos are 16 x 9; a vertical phone
+       video is 9 x 16.
     ================================================= */
-
     const videos = {
-
-      "reel-one": {
-        title: "Episode 1 — A Visit to Institute, WV",
-        id: "VohUntGNZ48",
-        w: 16,
-        h: 9
-      },
-
-      "reel-two": {
-        title: "Episode 2 — A Visit to the Cultural Center",
-        id: "X7b2kU7Esuw",
-        w: 16,
-        h: 9
-      },
-
-      "reel-three": {
-        title: "Blooper Reel",
-        id: "nstKud-OxAo",
-        w: 9,
-        h: 16
-      }
-
+      "reel-one":   { title: "Episode 1 \u2014 A Visit to Institute, WV", id: "VohUntGNZ48", w: 16, h: 9 },
+      "reel-two":   { title: "Episode 2 \u2014 A Visit to the Cultural Center", id: "X7b2kU7Esuw", w: 16, h: 9 },
+      "reel-three": { title: "Blooper Reel", id: "nstKud-OxAo", w: 9, h: 16 }
     };
-
 
     const videoModal = document.getElementById("videoModal");
     const videoFrame = document.getElementById("videoFrame");
     const videoTitle = document.getElementById("videoTitle");
     const closeVideo = document.getElementById("closeVideo");
 
-
     function openVideo(reelId) {
-
       const video = videos[reelId];
-
-      if (!video) {
-        return;
-      }
-
+      if (!video) { return; }
       videoTitle.textContent = video.title;
-
-      /* Set the player shape for this video */
       videoModal.style.setProperty("--vw", video.w);
       videoModal.style.setProperty("--vh", video.h);
-
-      videoFrame.src =
-        "https://www.youtube-nocookie.com/embed/" +
-        video.id +
-        "?autoplay=1&rel=0";
-
+      videoFrame.src = "https://www.youtube-nocookie.com/embed/" + video.id + "?autoplay=1&rel=0";
       videoModal.classList.add("open");
-
       videoModal.setAttribute("aria-hidden", "false");
-
       document.body.style.overflow = "hidden";
-
     }
-
 
     function closeVideoWindow() {
-
       videoModal.classList.remove("open");
-
       videoModal.setAttribute("aria-hidden", "true");
-
-      /* Removing the YouTube URL stops the video completely. */
-      videoFrame.src = "";
-
+      videoFrame.src = "";   /* removing the URL stops the video completely */
       document.body.style.overflow = "";
-
     }
 
-
-    /* Connect each clickable button to its video */
-
-    ["reel-one", "reel-two", "reel-three"].forEach(function(id) {
-
-      document.getElementById(id).addEventListener("click", function() {
-        openVideo(id);
-      });
-
+    ["reel-one", "reel-two", "reel-three"].forEach(function (id) {
+      document.getElementById(id).addEventListener("click", function () { openVideo(id); });
     });
-
-
     closeVideo.addEventListener("click", closeVideoWindow);
-
-
-    /* Clicking the dark area outside the video closes it. */
-
-    videoModal.addEventListener("click", function(event) {
-
-      if (event.target === videoModal) {
-        closeVideoWindow();
-      }
-
+    videoModal.addEventListener("click", function (event) {
+      if (event.target === videoModal) { closeVideoWindow(); }
     });
-
-
-    /* Escape key closes the video or the menu. */
-
-    document.addEventListener("keydown", function(event) {
-
+    document.addEventListener("keydown", function (event) {
       if (event.key === "Escape") {
-
-        if (videoModal.classList.contains("open")) {
-          closeVideoWindow();
-        }
-
-        if (menu.classList.contains("open")) {
-          closeMenu();
-        }
-
+        if (videoModal.classList.contains("open")) { closeVideoWindow(); }
+        closeMenu();
       }
-
     });
-
   </script>
-
 </body>
 </html>
