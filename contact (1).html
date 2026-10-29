@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact | A Tenth of Mercy</title>
+  <style>
+    * { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; background: #100b08; color: #f2e6cf;
+      font-family: Georgia, "Times New Roman", serif; }
+    body { min-height: 100vh; min-height: 100dvh; background:
+      radial-gradient(ellipse at 50% 0%, rgba(150,105,40,.22), transparent 60%), #100b08; }
+    /* --------------------------------------------------
+       HAMBURGER MENU
+    -------------------------------------------------- */
+
+    .menu-button {
+      position: fixed;
+      top: 22px;
+      left: 22px;
+      z-index: 1000;
+
+      width: 48px;
+      height: 48px;
+
+      border: 1px solid rgba(210, 166, 70, 0.75);
+      border-radius: 4px;
+
+      background: rgba(0, 0, 0, 0.72);
+      color: #d8ad52;
+
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 6px;
+
+      transition: background 0.25s ease,
+                  transform 0.25s ease;
+    }
+
+    .menu-button:hover {
+      background: rgba(35, 25, 10, 0.9);
+      transform: scale(1.04);
+    }
+
+    .menu-button span {
+      display: block;
+      width: 23px;
+      height: 2px;
+      background: #d8ad52;
+    }
+
+    .menu {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 999;
+
+      width: 300px;
+      max-width: 85vw;
+      height: 100vh;   /* fallback for older browsers */
+      height: 100dvh;  /* correct height on phones */
+
+      padding: 90px 35px 40px;
+
+      background: rgba(8, 6, 3, 0.97);
+      border-right: 1px solid rgba(210, 166, 70, 0.55);
+
+      transform: translateX(-100%);
+      transition: transform 0.35s ease;
+
+      line-height: 1.4;
+    }
+
+    .menu.open {
+      transform: translateX(0);
+    }
+
+    .menu a {
+      display: block;
+      padding: 14px 0;
+
+      color: #d8ad52;
+      text-decoration: none;
+
+      font-size: 18px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+
+      border-bottom: 1px solid rgba(210, 166, 70, 0.18);
+
+      transition: color 0.2s ease,
+                  padding-left 0.2s ease;
+    }
+
+    .menu a:hover {
+      color: #f2d28a;
+      padding-left: 6px;
+    }
+
+    .menu a.active {
+      color: #f2d28a;
+    }
+
+    .menu-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 998;
+
+      background: rgba(0, 0, 0, 0.55);
+
+      opacity: 0;
+      pointer-events: none;
+
+      transition: opacity 0.35s ease;
+    }
+
+    .menu-overlay.open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+
+    .page { max-width: 880px; margin: 0 auto; padding: 84px 22px 80px; }
+    .hero { position: relative; border: 1px solid rgba(212,167,74,.55); border-radius: 6px; overflow: hidden;
+      box-shadow: 0 14px 40px rgba(0,0,0,.65), 0 0 40px rgba(212,167,74,.12); line-height: 0; }
+    .hero img { display: block; width: 100%; height: auto; }
+    .hero::after { content: ""; position: absolute; inset: 0;
+      background: linear-gradient(to bottom, rgba(16,11,8,0) 38%, rgba(16,11,8,.92) 100%); pointer-events: none; }
+    .hero h1 { position: absolute; z-index: 2; left: 0; right: 0; bottom: 22px; margin: 0; text-align: center;
+      font-weight: normal; font-size: 54px; letter-spacing: 6px; text-transform: uppercase; color: #d8ad52;
+      text-shadow: 0 2px 18px rgba(0,0,0,.9); line-height: 1.1; }
+    .actions { display: flex; flex-direction: column; align-items: stretch; gap: 16px; max-width: 620px; margin: 38px auto 0; }
+    .btn { display: block; width: 100%; padding: 18px 24px; text-align: center; text-decoration: none; cursor: pointer;
+      font: inherit; font-size: 22px; letter-spacing: 3px; text-transform: uppercase; color: #f6ecd2;
+      background: linear-gradient(rgba(216,173,82,.16), rgba(216,173,82,.07));
+      border: 1px solid rgba(216,173,82,.8); border-radius: 6px;
+      transition: background .2s, color .2s, box-shadow .2s, transform .2s; -webkit-tap-highlight-color: transparent; }
+    .btn small { display: block; margin-top: 6px; font-size: 14px; letter-spacing: 1.5px; text-transform: none;
+      font-style: italic; color: #cdb98f; }
+    .btn:hover, .btn:focus-visible { background: #d8ad52; color: #100b08; outline: none; transform: translateY(-2px);
+      box-shadow: 0 8px 22px rgba(0,0,0,.6), 0 0 22px rgba(216,173,82,.3); }
+    .btn:hover small, .btn:focus-visible small { color: #3a2a10; }
+    .btn b { color: #f2d28a; font-weight: bold; }
+    .btn:hover b, .btn:focus-visible b { color: #100b08; }
+    @media (max-width: 700px) {
+      .page { padding: 76px 14px 60px; }
+      .hero h1 { font-size: 32px; letter-spacing: 4px; bottom: 14px; }
+      .btn { font-size: 18px; padding: 16px 16px; letter-spacing: 2px; }
+      .actions { margin-top: 28px; }
+    }
+
+    @media (max-width: 700px) {
+      .menu-button { top: 14px; left: 14px; width: 43px; height: 43px; }
+      .menu { width: 280px; padding-top: 78px; }
+      .menu a { font-size: 16px; }
+    }
+
+    /* --------------------------------------------------
+       CONTACT COLUMNS
+       Each column has its own heading and note, which sit
+       right above its box. The boxes line up with each other.
+    -------------------------------------------------- */
+    .cards { display: grid; grid-template-columns: repeat(3, 1fr); column-gap: 16px; row-gap: 0; margin-top: 26px; }
+    .col { grid-row: span 3; display: grid; grid-template-rows: subgrid; }
+    .col-head { display: contents; }
+    .col-head h2 { align-self: end; margin: 0 0 8px; padding: 0 4px; text-align: center; font-weight: normal; font-size: 13px; letter-spacing: 2.5px;
+      line-height: 1.35; text-transform: uppercase; color: #d8ad52; }
+    .col-head p { align-self: start; margin: 0 0 14px; padding: 0 4px; text-align: center; font-size: 15px; line-height: 1.5; font-style: italic; color: #cdb98f; }
+    .card { display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;
+      padding: 20px 16px; border: 1px solid rgba(216,173,82,.8); border-radius: 6px;
+      background: linear-gradient(rgba(216,173,82,.16), rgba(216,173,82,.07)); }
+    .card .name { margin: 0; font-size: 22px; line-height: 1.25; color: #f6ecd2; }
+    .card .org { margin: 2px 0 10px; font-size: 15px; font-style: italic; color: #cdb98f; }
+    .card address, .card .line { margin: 0; font-style: normal; font-size: 15px; line-height: 1.55; color: #f2e6cf; }
+    .card .line + .line { margin-top: 2px; }
+    .card a { color: #f2d28a; text-decoration: none; border-bottom: 1px solid rgba(242,210,138,.35);
+      overflow-wrap: anywhere; transition: color .2s, border-color .2s; }
+    .card a:hover, .card a:focus-visible { color: #fff; border-bottom-color: #fff; outline: none; }
+
+    /* Desktop only: the page is exactly one screen tall and the photo
+       takes whatever space the text and boxes leave, so nothing scrolls.
+       The photo is trimmed (not squished) on shorter screens. */
+    @media (min-width: 701px) {
+      .page { display: flex; flex-direction: column; min-height: 100vh; min-height: 100dvh; padding-bottom: 36px; }
+      .hero { flex: 1 1 0; min-height: 200px; }
+      .hero img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 40%; }
+    }
+    @media (max-width: 700px) {
+      .cards { display: block; margin-top: 22px; }
+      .col { display: block; margin-bottom: 26px; }
+    }
+
+  </style>
+</head>
+<body>
+  <button class="menu-button" id="menuButton" aria-label="Open menu" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+
+  <nav class="menu" id="menu">
+    <a href="index.html">Home</a>
+    <a href="excerpt.html">Read an Excerpt</a>
+    <a href="archive.html">Archive Room</a>
+    <a href="webisodes.html">Webisodes</a>
+    <a href="journey.html">The Journey</a>
+    <a href="contact.html" class="active">Contact</a>
+  </nav>
+  <div class="menu-overlay" id="menuOverlay"></div>
+
+  <main class="page">
+    <div class="hero">
+      <img src="contact-hero.jpg" alt="A row of old payphone booths in black and white">
+      <h1>Contact</h1>
+    </div>
+    <div class="cards">
+      <div class="col">
+        <div class="col-head">
+          <h2>Film, TV &amp; Licensing</h2>
+          <p>Rob Kerr is a director and screenwriter with 10 feature length scripts ready to go into development.</p>
+        </div>
+        <section class="card">
+          <p class="name">CJ Stussi</p>
+          <p class="org">CJ Stussi Law</p>
+          <p class="line"><a href="tel:+13103002360">(310) 300-2360</a></p>
+          <p class="line"><a href="mailto:cstussi@filmslaw.com">cstussi@filmslaw.com</a></p>
+        </section>
+      </div>
+
+      <div class="col">
+        <div class="col-head">
+          <h2>Press &amp; Media (Public Relations)</h2>
+          <p>Interviews, review copies, and media requests.</p>
+        </div>
+        <section class="card">
+          <p class="name">Wiley Saichek</p>
+          <p class="org">Saichek Publicity</p>
+          <address>320 7th Avenue, #232<br>Brooklyn, NY 11215</address>
+          <p class="line"><a href="tel:+16468969960">(646) 896-9960</a></p>
+          <p class="line"><a href="mailto:SaichekPublicity@gmail.com">SaichekPublicity@gmail.com</a></p>
+        </section>
+      </div>
+
+      <div class="col">
+        <div class="col-head">
+          <h2>Readers &amp; Comments</h2>
+          <p>Questions, comments, and reader notes are always welcome.</p>
+        </div>
+        <section class="card">
+          <p class="line"><a href="mailto:atenthofmercy@gmail.com">atenthofmercy@gmail.com</a></p>
+        </section>
+      </div>
+    </div>
+  </main>
+  <script>
+    const menuButton = document.getElementById("menuButton");
+    const menu = document.getElementById("menu");
+    const menuOverlay = document.getElementById("menuOverlay");
+    function closeMenu() {
+      menu.classList.remove("open");
+      menuOverlay.classList.remove("open");
+      menuButton.setAttribute("aria-expanded", "false");
+    }
+    menuButton.addEventListener("click", function () {
+      const isOpen = menu.classList.toggle("open");
+      menuOverlay.classList.toggle("open", isOpen);
+      menuButton.setAttribute("aria-expanded", isOpen);
+    });
+    menuOverlay.addEventListener("click", closeMenu);
+
+    document.addEventListener("keydown", function (e) { if (e.key === "Escape") closeMenu(); });
+  </script>
+</body>
+</html>
