@@ -154,6 +154,17 @@
       .actions { margin-top: 28px; }
     }
 
+
+    /* Desktop only: the page is exactly one screen tall and the photo
+       takes whatever space the text and buttons leave, so nothing scrolls.
+       The photo is trimmed (not squished) on shorter screens. */
+    @media (min-width: 701px) {
+      .page { display: flex; flex-direction: column; min-height: 100vh; min-height: 100dvh; padding-bottom: 36px; }
+      .hero { flex: 1 1 0; min-height: 220px; }
+      .hero img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 40%; }
+      .actions, .intro { width: 100%; }
+    }
+
 /* --------------------------------------------------
        VIDEO MODAL
        Each video sets its own shape (--vw and --vh) so a
