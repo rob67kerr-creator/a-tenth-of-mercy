@@ -3,521 +3,354 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>A Tenth of Mercy</title>
-
+<meta name="description" content="A Tenth of Mercy by Rob Kerr. Inspired by the remarkable true story. Book release February 1, 2027.">
 <style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
 
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
+  html { scroll-behavior: smooth; }
 
-html {
-    scroll-behavior: smooth;
-}
-
-body {
-    background: #100b08;
+  body {
+    background: #0d0a08;
     color: #f2e6cf;
     font-family: Georgia, "Times New Roman", serif;
     min-height: 100vh;
-}
+  }
 
-/* =========================
-   HERO / HOME PAGE
-   ========================= */
-
-.hero {
-    min-height: 100vh;
-    position: relative;
-    overflow: hidden;
-
-    background:
-        linear-gradient(
-            rgba(10, 6, 4, 0.18),
-            rgba(10, 6, 4, 0.42)
-        ),
-        url("home.jpg") center center / cover no-repeat;
-
+  /* =========================
+     HAMBURGER
+  ========================= */
+  .menu-button {
+    position: fixed;
+    top: 14px;
+    left: 14px;
+    z-index: 30;
+    width: 48px;
+    height: 48px;
+    background: #0d0a08;
+    border: 1px solid #6b5326;
+    border-radius: 4px;
+    cursor: pointer;
     display: flex;
     flex-direction: column;
-    align-items: center;
-}
-
-/* =========================
-   HAMBURGER
-   ========================= */
-
-.menu-button {
-    position: absolute;
-    top: 25px;
-    left: 25px;
-    z-index: 20;
-
-    width: 58px;
-    height: 48px;
-
-    background: transparent;
-    border: none;
-
-    cursor: pointer;
-}
-
-.menu-button span {
-    display: block;
-    width: 48px;
-    height: 4px;
-    margin: 8px 0;
-
-    background: #d8ad58;
-    border-radius: 2px;
-}
-
-/* =========================
-   NAVIGATION MENU
-   ========================= */
-
-.menu {
-    position: fixed;
-    inset: 0;
-    z-index: 15;
-
-    background: rgba(12, 7, 5, 0.97);
-
-    display: none;
     align-items: center;
     justify-content: center;
+    gap: 6px;
+  }
+  .menu-button span {
+    display: block;
+    width: 24px;
+    height: 2px;
+    background: #d8ad58;
+    border-radius: 2px;
+  }
 
-    text-align: center;
-}
+  /* =========================
+     SIDE MENU
+  ========================= */
+  .menu {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    z-index: 20;
+    width: min(274px, 82vw);
+    padding: 78px 26px 26px;
+    background: #070504;
+    border-right: 1px solid #3a2e1a;
+    transform: translateX(-100%);
+    visibility: hidden;
+    transition: transform 0.28s ease, visibility 0s linear 0.28s;
+  }
+  .menu.open {
+    transform: translateX(0);
+    visibility: visible;
+    transition: transform 0.28s ease, visibility 0s;
+  }
+  .menu a {
+    display: block;
+    padding: 16px 0;
+    border-bottom: 1px solid #2a2114;
+    color: #d8ad58;
+    text-decoration: none;
+    font-size: 17px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    transition: color 0.2s ease;
+  }
+  .menu a:hover,
+  .menu a:focus-visible { color: #fff4dc; }
 
-.menu.open {
-    display: flex;
-}
+  .menu-backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 10;
+    background: rgba(0, 0, 0, 0.55);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.28s ease, visibility 0s linear 0.28s;
+  }
+  .menu-backdrop.open {
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.28s ease, visibility 0s;
+  }
 
-.menu-inner {
+  /* =========================
+     HOME
+  ========================= */
+  .home {
     display: flex;
     flex-direction: column;
-    gap: 26px;
-}
+    align-items: center;
+    padding: 28px 20px 64px;
+    text-align: center;
+  }
 
-.menu a {
-    color: #e2bd70;
-    text-decoration: none;
-
-    font-size: 25px;
-    letter-spacing: 4px;
-    text-transform: uppercase;
-
-    transition: color 0.2s ease;
-}
-
-.menu a:hover {
-    color: #fff4dc;
-}
-
-/* =========================
-   TITLE
-   ========================= */
-
-.site-title {
-    margin-top: 48px;
-
+  .site-title {
+    margin-top: 6px;
     color: #d8b66b;
-
-    font-size: clamp(22px, 3vw, 42px);
+    font-size: clamp(20px, 3vw, 36px);
     letter-spacing: 8px;
     text-transform: uppercase;
-
-    text-align: center;
-}
-
-.site-title span {
+  }
+  .site-title span {
     font-size: 0.72em;
     letter-spacing: 4px;
     text-transform: lowercase;
-}
+  }
 
-/* =========================
-   QUOTE
-   ========================= */
-
-.quote {
-    margin-top: 42px;
-
-    max-width: 850px;
-    padding: 0 25px;
-
-    text-align: center;
-
+  .quote {
+    margin-top: 30px;
+    max-width: 760px;
     color: #f4eee4;
-
-    font-size: clamp(28px, 4vw, 48px);
+    font-size: clamp(24px, 3.6vw, 42px);
     line-height: 1.35;
-
     font-style: italic;
+  }
 
-    text-shadow: 0 3px 8px #000;
-}
+  .cover {
+    margin-top: 36px;
+    width: min(400px, 78vw);
+    line-height: 0;
+  }
+  .cover img {
+    width: 100%;
+    height: auto;
+    border: 1px solid #5a4522;
+    border-radius: 4px;
+    box-shadow: 0 18px 50px rgba(0, 0, 0, 0.7);
+  }
 
-.quote::before {
-    content: "“";
-}
-
-.quote::after {
-    content: "”";
-}
-
-/* =========================
-   DIVIDER
-   ========================= */
-
-.divider {
-    width: min(500px, 70%);
-    height: 1px;
-
-    background: #c49b52;
-
-    margin: 28px auto;
-    position: relative;
-}
-
-.divider::after {
-    content: "✦";
-
-    position: absolute;
-    left: 50%;
-    top: 50%;
-
-    transform: translate(-50%, -50%);
-
-    color: #d8b66b;
-    background: #100b08;
-
-    padding: 0 12px;
-}
-
-/* =========================
-   BOOK / INFORMATION
-   ========================= */
-
-.book-info {
-    margin-top: auto;
-    margin-bottom: 65px;
-
-    text-align: center;
-
-    padding: 0 20px;
-
-    text-shadow: 0 3px 8px #000;
-}
-
-.inspired {
-    font-weight: bold;
-    font-size: clamp(18px, 2.4vw, 28px);
-
-    letter-spacing: 2px;
-    text-transform: uppercase;
-
-    color: #f1e4c8;
-}
-
-.book-title {
-    margin-top: 12px;
-
-    font-size: clamp(42px, 7vw, 82px);
-
-    letter-spacing: 5px;
-    font-weight: bold;
-
-    color: #caa05b;
-}
-
-.author {
-    margin-top: 8px;
-
-    font-size: clamp(18px, 2.2vw, 27px);
-
-    letter-spacing: 4px;
-    color: #f1e4c8;
-}
-
-.release-label {
-    margin-top: 28px;
-
+  .release-label {
+    margin-top: 36px;
     color: #d5ad61;
-
-    font-size: 15px;
+    font-size: 14px;
     letter-spacing: 4px;
     text-transform: uppercase;
-}
-
-.release-date {
-    margin-top: 5px;
-
-    font-size: clamp(24px, 3vw, 38px);
-
+  }
+  .release-date {
+    margin-top: 6px;
+    font-size: clamp(24px, 3vw, 36px);
     letter-spacing: 3px;
     color: #fff;
-}
-
-.preorder {
+  }
+  .preorder {
     margin-top: 6px;
-
     font-size: 18px;
     font-style: italic;
-
     color: #eadfc9;
-}
+  }
 
-/* =========================
-   BUTTONS
-   ========================= */
-
-.buttons {
+  /* =========================
+     BUTTONS
+  ========================= */
+  .buttons {
     display: flex;
     flex-direction: column;
     align-items: center;
-
     gap: 14px;
-
-    margin-top: 25px;
-}
-
-.button {
+    margin-top: 26px;
+  }
+  .button {
     display: block;
-
-    width: min(600px, 88vw);
-
+    width: min(560px, 88vw);
     padding: 18px 24px;
-
     border-radius: 6px;
-
     text-decoration: none;
-
-    font-size: 19px;
+    font-family: inherit;
+    font-size: 18px;
     letter-spacing: 3px;
-
     text-transform: uppercase;
+    cursor: pointer;
+    transition: transform 0.2s ease, filter 0.2s ease;
+  }
+  .button:hover { transform: translateY(-2px); filter: brightness(1.12); }
 
-    transition:
-        transform 0.2s ease,
-        filter 0.2s ease;
-}
-
-.button:hover {
-    transform: translateY(-2px);
-    filter: brightness(1.12);
-}
-
-.deep {
-    background: #631d1b;
-    border: 1px solid #a74d46;
-
-    color: #fff0df;
-}
-
-.excerpt {
+  .excerpt {
     background: #d6b477;
     border: 1px solid #ecd3a4;
-
     color: #21150e;
-}
+  }
+  .notify {
+    background: #631d1b;
+    border: 1px solid #a74d46;
+    color: #fff0df;
+  }
 
-/* =========================
-   SCROLL MESSAGE
-   ========================= */
+  a:focus-visible,
+  button:focus-visible {
+    outline: 2px solid #ecd3a4;
+    outline-offset: 3px;
+  }
 
-.scroll-message {
-    margin-top: 28px;
+  /* =========================
+     KEEP ME POSTED MODAL
+  ========================= */
+  .modal {
+    position: fixed;
+    inset: 0;
+    z-index: 40;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background: rgba(0, 0, 0, 0.78);
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity 0.25s ease, visibility 0s linear 0.25s;
+  }
+  .modal.open {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transition: opacity 0.25s ease, visibility 0s;
+  }
+  .modal-panel {
+    position: relative;
+    width: min(520px, 100%);
+    max-height: 92vh;
+    overflow-y: auto;
+    padding: 34px 26px 26px;
+    background: #f2e6cf;
+    color: #2a1a12;
+    border: 1px solid #c49b52;
+    border-radius: 8px;
+    text-align: center;
+  }
+  .modal-panel h2 {
+    font-size: 26px;
+    letter-spacing: 1px;
+    color: #4a1311;
+  }
+  .modal-panel p {
+    margin: 10px 0 18px;
+    font-size: 17px;
+    line-height: 1.5;
+  }
+  .modal-close {
+    position: absolute;
+    top: 8px;
+    right: 10px;
+    width: 40px;
+    height: 40px;
+    background: transparent;
+    border: none;
+    color: #4a1311;
+    font-size: 30px;
+    line-height: 1;
+    cursor: pointer;
+  }
 
-    color: #d8b66b;
+  @media (max-width: 700px) {
+    .home { padding-top: 22px; }
+    .site-title { letter-spacing: 5px; }
+    .quote { margin-top: 24px; font-size: 24px; }
+    .cover { margin-top: 28px; }
+    .button { font-size: 16px; letter-spacing: 2px; padding: 16px 18px; }
+  }
 
-    font-size: 14px;
-    letter-spacing: 4px;
-
-    text-transform: uppercase;
-}
-
-/* =========================
-   MOBILE
-   ========================= */
-
-@media (max-width: 700px) {
-
-    .menu-button {
-        top: 18px;
-        left: 18px;
-    }
-
-    .site-title {
-        margin-top: 28px;
-        letter-spacing: 5px;
-    }
-
-    .quote {
-        margin-top: 28px;
-        font-size: 27px;
-    }
-
-    .book-info {
-        margin-bottom: 40px;
-    }
-
-    .book-title {
-        letter-spacing: 3px;
-    }
-
-    .button {
-        font-size: 16px;
-        letter-spacing: 2px;
-        padding: 16px 18px;
-    }
-
-    .scroll-message {
-        font-size: 11px;
-        letter-spacing: 3px;
-    }
-}
-
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { transition: none !important; }
+  }
 </style>
 </head>
-
 <body>
 
-<!-- =========================
-     HOME
-     ========================= -->
+<!-- HAMBURGER BUTTON -->
+<button class="menu-button" id="menuButton" onclick="toggleMenu()" aria-label="Open menu" aria-controls="menu" aria-expanded="false">
+  <span></span>
+  <span></span>
+  <span></span>
+</button>
 
-<section class="hero">
+<!-- MENU -->
+<nav class="menu" id="menu" aria-label="Main">
+  <a href="index.html" onclick="closeMenu()">Home</a>
+  <a href="archive.html" onclick="closeMenu()">Archive Room</a>
+  <a href="webisodes.html" onclick="closeMenu()">Webisodes</a>
+  <a href="contact.html" onclick="closeMenu()">Contact</a>
+</nav>
+<div class="menu-backdrop" id="menuBackdrop" onclick="closeMenu()"></div>
 
-    <!-- HAMBURGER BUTTON -->
-    <button class="menu-button" onclick="toggleMenu()" aria-label="Open menu">
-        <span></span>
-        <span></span>
-        <span></span>
-    </button>
+<!-- HOME -->
+<main class="home">
 
+  <div class="site-title">A Tenth <span>of</span> Mercy</div>
 
-    <!-- MENU -->
-    <nav class="menu" id="menu">
+  <div class="quote">
+    &ldquo;Do you know what&rsquo;s worse than dying?<br>
+    Being afraid to live.&rdquo;
+  </div>
 
-        <div class="menu-inner">
+  <div class="cover">
+    <img src="tenth-cover.jpg" width="998" height="1500"
+         alt="Book cover of A Tenth of Mercy by Rob Kerr: black-eyed Susans growing through broken shackles in front of a plantation house.">
+  </div>
 
-            <a href="index.html" onclick="closeMenu()">Home</a>
+  <div class="release-label">Book Release</div>
+  <div class="release-date">FEBRUARY 1, 2027</div>
+  <div class="preorder">Preorders Begin January 2027</div>
 
-            <a href="excerpt.html" onclick="closeMenu()">
-                Read an Excerpt
-            </a>
+  <div class="buttons">
+    <a class="button excerpt" href="excerpt.html">Read an Excerpt</a>
+    <button class="button notify" type="button" onclick="openSignup()">Keep Me Posted</button>
+  </div>
 
-            <a href="archive.html" onclick="closeMenu()">
-                Archive Room
-            </a>
+</main>
 
-            <a href="webisodes.html" onclick="closeMenu()">
-                Webisodes
-            </a>
+<!-- KEEP ME POSTED SIGN-UP (Beehiiv) -->
+<div class="modal" id="signup" role="dialog" aria-modal="true" aria-labelledby="signupTitle" onclick="if (event.target === this) closeSignup()">
+  <div class="modal-panel">
+    <button class="modal-close" type="button" onclick="closeSignup()" aria-label="Close">&times;</button>
+    <h2 id="signupTitle">Keep Me Posted</h2>
+    <p>Leave your email and we&rsquo;ll let you know the day preorders open in January.</p>
 
-            <a href="journey.html" onclick="closeMenu()">
-                The Journey
-            </a>
-
-            <a href="contact.html" onclick="closeMenu()">
-                Contact
-            </a>
-
-        </div>
-
-    </nav>
-
-
-    <!-- SITE TITLE -->
-
-    <div class="site-title">
-        A Tenth <span>of</span> Mercy
-    </div>
-
-
-    <!-- OPENING QUOTE -->
-
-    <div class="quote">
-        Do you know what's worse than dying?
-        <br>
-        Being afraid to live.
-    </div>
-
-
-    <div class="divider"></div>
-
-
-    <!-- BOOK INFORMATION -->
-
-    <div class="book-info">
-
-        <div class="inspired">
-            Inspired by the remarkable true story
-        </div>
-
-        <div class="book-title">
-            A TENTH<br>
-            OF MERCY
-        </div>
-
-        <div class="author">
-            ROB KERR
-        </div>
-
-        <div class="release-label">
-            Book Release
-        </div>
-
-        <div class="release-date">
-            FEBRUARY 1, 2027
-        </div>
-
-        <div class="preorder">
-            Preorders Begin January 2027
-        </div>
-
-
-        <!-- BUTTONS -->
-
-        <div class="buttons">
-
-            <a class="button deep" href="journey.html">
-                Dig Deeper
-            </a>
-
-            <a class="button excerpt" href="excerpt.html">
-                Read the First Two Chapters
-            </a>
-
-        </div>
-
-
-        <div class="scroll-message">
-            ↓ &nbsp; Scroll to begin the story &nbsp; ↓
-        </div>
-
-    </div>
-
-</section>
-
+    <script async src="https://subscribe-forms.beehiiv.com/v3/loader.js" data-beehiiv-form="f9626ca3-dc53-4c62-b0da-28a7ab909249"></script>
+  </div>
+</div>
 
 <script>
+  function toggleMenu() {
+    var open = !document.getElementById("menu").classList.contains("open");
+    setMenu(open);
+  }
+  function closeMenu() { setMenu(false); }
+  function setMenu(open) {
+    document.getElementById("menu").classList.toggle("open", open);
+    document.getElementById("menuBackdrop").classList.toggle("open", open);
+    var btn = document.getElementById("menuButton");
+    btn.setAttribute("aria-expanded", open ? "true" : "false");
+    btn.setAttribute("aria-label", open ? "Close menu" : "Open menu");
+  }
 
-function toggleMenu() {
-    const menu = document.getElementById("menu");
-    menu.classList.toggle("open");
-}
+  function openSignup()  { document.getElementById("signup").classList.add("open"); }
+  function closeSignup() { document.getElementById("signup").classList.remove("open"); }
 
-function closeMenu() {
-    const menu = document.getElementById("menu");
-    menu.classList.remove("open");
-}
-
+  document.addEventListener("keydown", function (e) {
+    if (e.key === "Escape") { closeMenu(); closeSignup(); }
+  });
 </script>
 
 </body>
