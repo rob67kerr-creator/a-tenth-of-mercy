@@ -161,16 +161,19 @@
     }
 
     /* --------------------------------------------------
-       CONTACT CARDS
+       CONTACT COLUMNS
+       Each column has its own heading and note, which sit
+       right above its box. The boxes line up with each other.
     -------------------------------------------------- */
-    .intro { max-width: 720px; margin: 30px auto 0; text-align: center; font-style: italic;
-      font-size: 17px; line-height: 1.55; color: #cdb98f; }
-    .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 22px; }
-    .card { display: flex; flex-direction: column; align-items: center; text-align: center;
+    .cards { display: grid; grid-template-columns: repeat(3, 1fr); column-gap: 16px; row-gap: 0; margin-top: 26px; }
+    .col { grid-row: span 3; display: grid; grid-template-rows: subgrid; }
+    .col-head { display: contents; }
+    .col-head h2 { align-self: end; margin: 0 0 8px; padding: 0 4px; text-align: center; font-weight: normal; font-size: 13px; letter-spacing: 2.5px;
+      line-height: 1.35; text-transform: uppercase; color: #d8ad52; }
+    .col-head p { align-self: start; margin: 0 0 14px; padding: 0 4px; text-align: center; font-size: 15px; line-height: 1.5; font-style: italic; color: #cdb98f; }
+    .card { display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;
       padding: 20px 16px; border: 1px solid rgba(216,173,82,.8); border-radius: 6px;
       background: linear-gradient(rgba(216,173,82,.16), rgba(216,173,82,.07)); }
-    .card h2 { margin: 0 0 10px; font-weight: normal; font-size: 14px; letter-spacing: 3px;
-      text-transform: uppercase; color: #d8ad52; }
     .card .name { margin: 0; font-size: 22px; line-height: 1.25; color: #f6ecd2; }
     .card .org { margin: 2px 0 10px; font-size: 15px; font-style: italic; color: #cdb98f; }
     .card address, .card .line { margin: 0; font-style: normal; font-size: 15px; line-height: 1.55; color: #f2e6cf; }
@@ -180,18 +183,16 @@
     .card a:hover, .card a:focus-visible { color: #fff; border-bottom-color: #fff; outline: none; }
 
     /* Desktop only: the page is exactly one screen tall and the photo
-       takes whatever space the text and buttons leave, so nothing scrolls.
+       takes whatever space the text and boxes leave, so nothing scrolls.
        The photo is trimmed (not squished) on shorter screens. */
     @media (min-width: 701px) {
       .page { display: flex; flex-direction: column; min-height: 100vh; min-height: 100dvh; padding-bottom: 36px; }
-      .hero { flex: 1 1 0; min-height: 220px; }
+      .hero { flex: 1 1 0; min-height: 200px; }
       .hero img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 40%; }
-      .actions, .intro { width: 100%; }
     }
-
     @media (max-width: 700px) {
-      .intro { margin-top: 24px; font-size: 16px; }
-      .cards { grid-template-columns: 1fr; margin-top: 18px; }
+      .cards { display: block; margin-top: 22px; }
+      .col { display: block; margin-bottom: 26px; }
     }
 
   </style>
@@ -216,33 +217,43 @@
       <img src="contact-hero.jpg" alt="A row of old payphone booths in black and white">
       <h1>Contact</h1>
     </div>
-    <p class="intro">A Tenth of Mercy began as a screenplay before it became a novel. Rob Kerr is a screenwriter with ten completed feature scripts and plans to direct. For adaptation, licensing, and development inquiries, please contact:</p>
-
     <div class="cards">
-      <section class="card">
-        <h2>Film, TV &amp; Licensing</h2>
-        <p class="name">CJ Stussi</p>
-        <p class="org">CJ Stussi Law</p>
-        <p class="line"><a href="tel:+13103002360">(310) 300-2360</a></p>
-        <p class="line"><a href="mailto:cstussi@filmslaw.com">cstussi@filmslaw.com</a></p>
-      </section>
+      <div class="col">
+        <div class="col-head">
+          <h2>Film, TV &amp; Licensing</h2>
+          <p>Rob Kerr is a director and screenwriter with 10 feature length scripts ready to go into development.</p>
+        </div>
+        <section class="card">
+          <p class="name">CJ Stussi</p>
+          <p class="org">CJ Stussi Law</p>
+          <p class="line"><a href="tel:+13103002360">(310) 300-2360</a></p>
+          <p class="line"><a href="mailto:cstussi@filmslaw.com">cstussi@filmslaw.com</a></p>
+        </section>
+      </div>
 
-      <section class="card">
-        <h2>Press &amp; Media</h2>
-        <p class="name">Wiley Saichek</p>
-        <p class="org">Saichek Publicity</p>
-        <address>320 7th Avenue, #232<br>Brooklyn, NY 11215</address>
-        <p class="line"><a href="tel:+16468969960">(646) 896-9960</a></p>
-        <p class="line"><a href="mailto:SaichekPublicity@gmail.com">SaichekPublicity@gmail.com</a></p>
-      </section>
+      <div class="col">
+        <div class="col-head">
+          <h2>Press &amp; Media (Public Relations)</h2>
+          <p>Interviews, review copies, and media requests.</p>
+        </div>
+        <section class="card">
+          <p class="name">Wiley Saichek</p>
+          <p class="org">Saichek Publicity</p>
+          <address>320 7th Avenue, #232<br>Brooklyn, NY 11215</address>
+          <p class="line"><a href="tel:+16468969960">(646) 896-9960</a></p>
+          <p class="line"><a href="mailto:SaichekPublicity@gmail.com">SaichekPublicity@gmail.com</a></p>
+        </section>
+      </div>
 
-      <section class="card">
-        <h2>Readers &amp; Comments</h2>
-        <p class="name">Rob Kerr</p>
-        <p class="org">Author of A Tenth of Mercy</p>
-        <p class="line">Questions, comments, and reader notes are always welcome. Write to:</p>
-        <p class="line"><a href="mailto:atenthofmercy@gmail.com">atenthofmercy@gmail.com</a></p>
-      </section>
+      <div class="col">
+        <div class="col-head">
+          <h2>Readers &amp; Comments</h2>
+          <p>Questions, comments, and reader notes are always welcome.</p>
+        </div>
+        <section class="card">
+          <p class="line"><a href="mailto:atenthofmercy@gmail.com">atenthofmercy@gmail.com</a></p>
+        </section>
+      </div>
     </div>
   </main>
   <script>
