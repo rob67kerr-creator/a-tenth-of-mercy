@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Read an Excerpt | A Tenth of Mercy</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background:#0d0a08; color:#f2e6cf; font-family:Georgia,"Times New Roman",serif; }
+
+  .menu-button { position:fixed; top:14px; left:14px; z-index:30; width:48px; height:48px; background:#0d0a08; border:1px solid #6b5326; border-radius:4px; cursor:pointer; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:6px; }
+  .menu-button span { display:block; width:24px; height:2px; background:#d8ad58; border-radius:2px; }
+  .menu { position:fixed; top:0; left:0; bottom:0; z-index:20; width:min(274px,82vw); padding:78px 26px 26px; background:#070504; border-right:1px solid #3a2e1a; transform:translateX(-100%); visibility:hidden; transition:transform .28s ease, visibility 0s linear .28s; }
+  .menu.open { transform:none; visibility:visible; transition:transform .28s ease, visibility 0s; }
+  .menu a { display:block; padding:16px 0; border-bottom:1px solid #2a2114; color:#d8ad58; text-decoration:none; font-size:17px; letter-spacing:3px; text-transform:uppercase; }
+  .menu a:hover { color:#fff4dc; }
+  .menu-backdrop { position:fixed; inset:0; z-index:10; background:rgba(0,0,0,.55); opacity:0; visibility:hidden; transition:opacity .28s ease, visibility 0s linear .28s; }
+  .menu-backdrop.open { opacity:1; visibility:visible; transition:opacity .28s ease, visibility 0s; }
+
+  .page { max-width:640px; margin:0 auto; padding:76px 22px 70px; }
+  .site-title { text-align:center; color:#d8b66b; font-size:15px; letter-spacing:6px; text-transform:uppercase; }
+  .intro { text-align:center; margin-top:8px; font-style:italic; color:#cdbf9f; }
+
+  .chapter { margin-top:56px; text-align:center; }
+  .chapter small { display:block; color:#d5ad61; font-size:14px; letter-spacing:5px; }
+  .chapter h2 { margin-top:8px; font-size:clamp(28px,6vw,40px); letter-spacing:3px; text-transform:uppercase; color:#fff4dc; }
+  .setting { margin:34px 0 18px; font-style:italic; color:#cdbf9f; }
+
+  .text p { font-size:19px; line-height:1.75; margin-bottom:0; }
+  .text p + p { text-indent:1.5em; }
+
+  .teaser { margin-top:64px; padding-top:40px; border-top:1px solid #6b5326; text-align:center; }
+  .teaser .kicker { color:#d5ad61; font-size:14px; letter-spacing:5px; text-transform:uppercase; }
+  .teaser .place { margin-top:18px; font-style:italic; color:#cdbf9f; }
+  .teaser .blurb { margin-top:14px; font-size:20px; line-height:1.7; text-align:left; }
+  .teaser .blurb + .blurb { margin-top:14px; }
+  .teaser .line { margin-top:26px; font-size:22px; font-style:italic; color:#fff4dc; }
+  .teaser .true { margin-top:16px; color:#d8b66b; font-size:14px; letter-spacing:4px; text-transform:uppercase; }
+  .teaser .date { margin-top:34px; font-size:24px; letter-spacing:3px; color:#fff; }
+  .teaser .pre { margin-top:4px; font-style:italic; color:#eadfc9; }
+
+  .signup { margin:26px auto 0; width:100%; max-width:560px; padding:26px 16px 20px; background:#f2e6cf; color:#2a1a12; border:1px solid #c49b52; border-radius:8px; }
+  .signup h3 { font-size:24px; color:#4a1311; }
+  .signup p { margin:10px 0 16px; font-size:16px; line-height:1.5; }
+  .signup iframe, .signup > div { width:100% !important; max-width:100% !important; }
+  .signup .fallback { margin:16px 0 0; font-size:14px; color:#5a463a; }
+  .signup .fallback a { color:#4a1311; }
+
+  .home-link { display:block; margin-top:34px; text-align:center; color:#d8ad58; font-size:15px; letter-spacing:3px; text-transform:uppercase; text-decoration:none; }
+  .home-link:hover { color:#fff4dc; }
+  a:focus-visible, button:focus-visible { outline:2px solid #ecd3a4; outline-offset:3px; }
+</style>
+</head>
+<body>
+
+<button class="menu-button" id="menuButton" onclick="toggleMenu()" aria-label="Open menu" aria-controls="menu" aria-expanded="false"><span></span><span></span><span></span></button>
+<nav class="menu" id="menu" aria-label="Main">
+  <a href="index.html">Home</a>
+  <a href="archive.html">Archive Room</a>
+  <a href="webisodes.html">Webisodes</a>
+  <a href="contact.html">Contact</a>
+</nav>
+<div class="menu-backdrop" id="menuBackdrop" onclick="closeMenu()"></div>
+
+<main class="page">
+  <div class="site-title">A Tenth of Mercy</div>
+  <div class="intro">An excerpt from the novel by Rob Kerr</div>
+
+  <div class="chapter"><small>CHAPTER ONE</small><h2>The Night Music</h2></div>
+  <p class="setting">A stone’s throw from Charleston, West Virginia, shortly after the Civil War…</p>
+  <div class="text">
+    <p>Samuel I. Cabell springs up in his bed with the force of a jack-in-the-box. Unlike the child’s toy, in which the smiling puppet escapes from a colorfully painted container, Samuel has escaped from a nightmare; a death dream. Panting and sweat-soaked, the sixty-two-year-old man looks around the darkened bedroom. A clock on the wall ticks away the seconds peacefully, but peace does not come to Samuel I. Cabell. He runs his hand through his damp salt-and-pepper beard and listens to the night music.</p>
+    <p>A soft rain dances on the roof of the antebellum-style house. The sound of the rain mingles with the tick-tock of the bedroom clock, forming a peaceful duet; mechanical and melancholy. But peace does not come to Samuel I. Cabell. Another sound joins the night music, and the duet becomes a trio. The wind kicks up, and it howls violently outside the bedroom. Through the window, he watches the large branches of the sugar maple trees sway, as if gyrating to the music. The shadows of the branches form serpentine patterns that meander over the walls, then onto the bed, and finally onto Samuel. When he was a boy, he saw a snake charmer on the midway at the sideshow. Repulsed and fascinated, he hid safely behind his father’s legs as the scaly creature weaved its sinuous body to the piper’s tune. Now, in this moment, he is surrounded by hundreds of snakes, pulsating and spiraling in all directions at all times, and he has no place to hide.</p>
+    <p>A fourth sound emerges. The night music is building up to a crescendo, and when Samuel hears it, he clutches the bedsheet tightly in his hands. He looks at his hands and is startled; his skin tone has always been very fair, even in the summer months, but now his hands are ghostly white. Or maybe the sheets are ghostly white, but no matter; they are both the same color. The fourth sound is a sound Samuel recognizes and fears greatly. Thunder. But not the thunder that’s born in the heavens above but rather spawned in the earth below. A man-made thunder. A harbinger.</p>
+    <p>He gets up and makes his way across the creaky, worn floorboards to the window. Through the sheets of rain, he sees the first rider, sitting upon his horse like a sentinel; stoic and unmoving. Only the red glow of his cigar, which pulsates in intensity as he inhales and exhales, gives any sign that this is not a statue that has been erected in front of Samuel’s house during the night.</p>
+    <p>More thunder. Four other shadowy figures ride up and stop a few yards behind the first rider. Samuel treads carefully to the window that faces the rear of his property. Afraid that somehow, the creaking floorboards in his bedroom might be heard by the shadowy figures outside, he holds his breath as he walks. Sure enough, he sees another dark silhouette, the rain cascading down the brim of his hat, holding a rifle and staring resolutely at the back door. The first rider flicks his cigar into the mud and pulls a bandana up over his face. He dismounts his horse, which has a peculiar diamond-shaped brand on its neck, and grabs a rifle from a leather satchel. He signals to the others to follow him toward the front door. The night music has one final, dramatic coda—the sound of five shadowy figures cocking their rifles in unison.</p>
+    <p>The first rider kicks the front door open, and the men cascade into the ornate mansion like a destructive, raging flood. Two of them run up the creaking staircase and charge into the bedroom. The clock ticks. The rain falls. The sugar maples dance. And Samuel I. Cabell is gone. The two men curse and then thunder back downstairs. No one notices the worn old Bible sitting on the corner of the bed.</p>
+    <p>Samuel clings to the trellis on the side of his house as he slowly descends in the darkness. His nightclothes are soaking wet and sticking to his skin from the rain. Or maybe it’s from the sweat of terror, but no matter; he is soaking wet just the same. His bare feet are bleeding from the rough edges of the wooden structure. He misses a step and falls the last five feet into the mud. Pulling himself out of the mire, he breathlessly gets up and starts toward the barn, about a hundred yards away. As he wipes the rain from his face, it seems more like a thousand. He stumbles and falls and stumbles again across the slippery grass like a runner in a dream; everything in slow motion and the feeling of the earth itself grasping his ankles and pulling him down.</p>
+    <p>He finally reaches the old barn. Doubled over and gasping for breath, it takes all of his strength to open the heavy, wooden door. A gunshot rips into the frame just inches above his head. More gunshots follow as Samuel disappears into the darkness. The shadowy figures enter the barn and spread out. From his hiding place in a corner, Samuel can hear their low, mumbled voices but can not make out what they are saying. The rain pounding on the roof above causes a roaring din in the cavernous space. It sounds as though the old barn sits at the foot of a mighty waterfall and might be swallowed up and washed away at any moment. The only light creeps in through the large gaps in the wooden slats of the old walls. A sliver of light here, a drop of rain there. The wind makes its way through the openings and causes Samuel to tremble from the chill as it dances across his wet nightclothes. Or maybe he is trembling from the death dream now come to life, but no matter; he is trembling just the same.</p>
+    <p>The animals in the barn start to mutter among themselves and move about. The shadowy figures are getting closer. Samuel crawls along the floor, moving in and out of the slivers of light. The hay on the dirt floor jabs into the palms of his hands and sticks into his knees like pincushions. Exhausted and bloody, he reaches a horse near the entrance of the barn. It has no saddle, and Samuel doesn’t have the strength to lift one anyway, so he climbs onto the beast and kicks its sides with his bare feet. He bursts out of the barn into the rainy night, holding on for dear life to the neck of the horse.</p>
+    <p>Once again, there is the sound of thunder. The shadowy figures are right behind him. It only takes one shot from the leader to dismount Samuel from this world. A reddish hue swirls in a puddle—blood mixed with rain. Or maybe it’s the reflection of the glow from the leader’s cigar as he stands over the body, but no matter; Samuel is dead just the same. And now peace has come to Samuel I. Cabell.</p>
+  </div>
+
+  <div class="chapter"><small>CHAPTER TWO</small><h2>Bathing in the Blue Sky</h2></div>
+  <p class="setting">Portsmouth, Ohio, five days later…</p>
+  <div class="text">
+    <p>Cletus Hammer shoved a piece of gum into his mouth. He had forgotten to remove the first piece, so saliva meandered down over both of his chins, taking a circuitous route down his shirt and eventually finding a home on the protruding spare tire below. When he was nervous, he talked. When he was really nervous, he chewed gum and talked. The combination of both resulted in Cletus barking out rapid, incoherent instructions to his players from cheeks swollen with sticky, amorphous, spearmint-flavored wads of gray.</p>
+    <p>His star player, Sam, stepped into the makeshift batter’s box with a makeshift baseball bat. The pitcher stared him down from the makeshift pitcher’s mound with a makeshift baseball. The teams that played negro baseball traveled a meandering, circuitous route themselves, often springing up for a game or two and then disappearing forever. New teams and new leagues came and went like the wind.</p>
+    <p>This game was being played in a makeshift field that had recently been cleared. Surrounding the black athletes were acres and acres of tall, golden wheat fields as far as the eye could see. A few dozen curious onlookers had gathered, and, appropriately, became makeshift spectators. Sam was nineteen years old; tall, wiry, and determined. He looked up into the blue, cloudless sky at the sun. He closed his eyes. He could hear his coach’s garbled instructions coming from somewhere. He could hear the team’s mascot, a boy named Pee-Wee, cheering from somewhere. He could feel the warm sun on his face as he heard everything from everywhere—the wind whistling through the wheat fields, songs from nearby birds, even the sound of his own heartbeat.</p>
+    <p>Sam opened his eyes. He ignored the sharp pain coming from his hands. Jagged slivers of wood were embedded deep into his fingers from the crudely made baseball bat, full of pockmarks and splinters. None of that mattered to Sam. He needed a hit to win the game. His teammate Nicholas waited impatiently on third base to be brought home. His voice was sandpaper and gravel: “Jus’ hit the ball, ugly—or do I gotta come down there and swing the bat for you?” Sam’s body tensed up as the pitcher went into his windup and hurled the ball. The makeshift bat met the makeshift ball with a resounding THUD—baseballs made from rags never made a resounding CRACK—and Nicholas crossed home plate, and the game was over.</p>
+    <p>Sam bathed himself in the deep blue skies that afternoon. At least, it looked that way to him. The surface of Hiniker Pond was like glass and perfectly reflected the sky. He reached into the water and tried to scoop out a cloud with both hands, but it rippled into a hundred thousand retreating circles away from him. His teammates washed in the same deep blue sky. All of them were about the same age, except one. All of them were friends, except one. All of them enjoyed the pure joy of winning a game, except one. The sandpaper and gravel one: he sat on the banks alone under the shade of a tree. Wet clothing draped over the branches and danced lazily around him in the warm breeze.</p>
+    <p>Sam tried to scoop up the cloud again and watched it seep through his fingers. He spoke to no one in particular. “I jus’ had a feelin’ that boy was gonna throw me heat. But I also figgered he might try a curve ball, too.”</p>
+    <p>Robbie floated along in the blue sky next to him. “Don’t know how you keep doin’ it, Sam. You always guess right!”</p>
+    <p>“I jus’ put myself in that boy’s shoes, Robbie. If I was in a position to face the other team’s best batter—I’d throw heat, that’s fo’ sure.”</p>
+    <p>The sandpaper and gravel one, Nicholas, spoke from under the tree. “Only he wasn’t facin’ our best batter, ’cause I was on third base at the time.”</p>
+    <p>Sam dug at the splinters in his hand and replied, “It was only ’cause you’re so slow that you was on third base, Nicholas. You hit that ball over the outfielder’s head and <em>still</em> didn’t score!”</p>
+    <p>“<em>You</em> coulda scored?” Nicholas countered.</p>
+    <p>“You gotta learn to hustle, Nicholas. You ain’t never gonna play pro ball with the half effort you give.”</p>
+    <p>Nicholas stood up. He was still in his dirty clothes. He never took them off in front of the others. He was the oldest player on the team, and taller and more muscular, too. “Pro ball?! You always talkin’ about playing pro ball with the white folks. No black man is ever gonna play with a white man, ever.”</p>
+    <p>“War’s over, Nicholas,” said Sam. “We got freedom now. Things are changin’ between us and white folks.”</p>
+  </div>
+
+  <section class="teaser" aria-label="About the book">
+    <div class="kicker">The story continues</div>
+    <p class="place">West Virginia, a month after the Civil War…</p>
+    <p class="blurb">When the richest slaveowner in the county is gunned down on a rainy night, his shocking secrets refuse to die with him. His former slave, Sam Barnes, had left town virtually unnoticed two years earlier, becoming a star in the fledgling negro baseball leagues. A cryptic letter from his mother brings him back, and he returns to find the community in chaos. The secrets that killed his former master have ignited into a raging firestorm, and Sam is at the center of it all.</p>
+    <p class="line">A powerful story from yesterday that is still compelling and highly relevant today.</p>
+    <p class="true">Inspired by the remarkable true story</p>
+
+    <p class="date">FEBRUARY 1, 2027</p>
+    <p class="pre">Preorders Begin January 2027</p>
+
+    <section class="signup" aria-labelledby="signupTitle">
+      <h3 id="signupTitle">Get a Preorder Reminder</h3>
+      <p>We’ll send a reminder email when preorders open for <em>A Tenth of Mercy</em>. No spam, no inbox clutter.</p>
+      <script async src="https://subscribe-forms.beehiiv.com/v3/loader.js" data-beehiiv-form="43528abd-34c4-4feb-bf4f-a8d6c227df2a"></script>
+      <p class="fallback">Form not showing? <a href="mailto:atenthofmercy@gmail.com?subject=Preorder%20reminder&amp;body=Please%20add%20me%20to%20the%20preorder%20reminder%20list.">Sign up here</a>.</p>
+    </section>
+  </section>
+
+  <a class="home-link" href="index.html">&larr; Back to home</a>
+</main>
+
+<script>
+  function toggleMenu(){ setMenu(!document.getElementById("menu").classList.contains("open")); }
+  function closeMenu(){ setMenu(false); }
+  function setMenu(open){
+    document.getElementById("menu").classList.toggle("open", open);
+    document.getElementById("menuBackdrop").classList.toggle("open", open);
+    var b = document.getElementById("menuButton");
+    b.setAttribute("aria-expanded", open ? "true" : "false");
+    b.setAttribute("aria-label", open ? "Close menu" : "Open menu");
+  }
+  document.addEventListener("keydown", function(e){ if (e.key === "Escape") closeMenu(); });
+</script>
+</body>
+</html>
